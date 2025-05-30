@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <title>Kết quả bài làm</title>
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+  <div class="role-selection-box">
+    <h2>Kết quả bài làm</h2>
+    <div id="result-content"></div>
+  </div>
+
+  <script>
+    const role = localStorage.getItem("role");
+    if (role !== "student") {
+      window.location.href = "index.html";
+    }
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const lessonId = urlParams.get("id");
+
+    const submissions = JSON.parse(localStorage.getItem("submissions") || "[]");
+    const lessons = JSON.parse(localStorage.getItem("lessons") || "[]");
+
+    const lesson = lessons.find(l => l.id === lessonId);
+    const submission = submissions.find(s => s.lessonId === lessonId);
+
+    const container = document.getElementById("result-content");
+
+    if (!lesson || !submission) {
+      container.innerHTML = "<p>Không tìm thấy dữ liệu bài làm.</p>";
+    } else {
+      const status = submission.score == null ? "Đang chờ chấm" : "Đã chấm";
+      container.innerHTML = `
+        <h3>${lesson.title}</h3>
+        <p><strong>Bài bạn đã nộp:</strong> ${submission.submission}</p>
+        <p><strong>Trạng thái:</strong> ${status}</p>
+        ${submission.score != null ? `<p><strong>Điểm:</strong> ${submission.score}/10</p>` : ""}
+        ${submission.feedback ? `<p><strong>Nhận xét:</strong> ${submission.feedback}</p>` : ""}
+      `;
+    }
+  </script>
+</body>
+</html>

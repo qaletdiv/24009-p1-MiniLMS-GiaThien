@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+    <title>Chọn vai trò</title>
+</head>
+<body>
+    <div class="role-selection-box">
+        <h1>Bạn là:</h1>
+        <div class="role-selection">
+            <button onclick="selectRole('student')">Học sinh</button><br>
+            <button onclick="selectRole('teacher')">Giáo Viên</button>
+        </div>
+    </div>
+
+    <script>
+        function selectRole(role){
+            localStorage.setItem('role',role);
+            if(role==='student'){
+                const grade=localStorage.getItem('grade');
+                if(grade){
+                    window.location.href="student-dashboard.html";
+                } else{
+                    window.location.href="select-grade.html";
+                }
+            } else {
+                window.location.href="teacher-dashboard.html"
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <title>Chi tiết bài giảng</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <div class="role-selection-box">
+    <h2>Chi tiết bài giảng</h2>
+    <div id="lesson-detail"></div>
+  </div>
+
+  <script>
+    const role = localStorage.getItem("role");
+    if (role !== "student") {
+      window.location.href = "index.html";
+    }
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const lessonId = urlParams.get("id");
+
+    const lessons = JSON.parse(localStorage.getItem("lessons") || "[]");
+    const lesson = lessons.find(l => l.id === lessonId);
+
+    const container = document.getElementById("lesson-detail");
+
+    if (!lesson) {
+      container.innerHTML = "<p>Không tìm thấy bài giảng.</p>";
+    } else if (lesson.answerKey) {
+      
+      window.location.href = "student-dashboard.html";
+    } else {
+      container.innerHTML = `
+        <h3>${lesson.title}</h3>
+        <p><strong>Khối lớp:</strong> ${lesson.grade}</p>
+        <p><strong>Nội dung:</strong></p>
+        <div style="text-align: left;">${lesson.content}</div>
+      `;
+    }
+  </script>
+</body>
+</html>

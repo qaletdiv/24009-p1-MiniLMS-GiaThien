@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <title>Làm bài tập</title>
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+  <div class="role-selection-box">
+    <h2>Làm bài tập</h2>
+    <div id="exercise-content"></div>
+
+    <form id="submit-form" style="display:none;">
+      <textarea id="student-answer" placeholder="Nhập câu trả lời của bạn..." required></textarea>
+      <button type="submit">Nộp bài</button>
+    </form>
+  </div>
+
+  <script>
+    const role = localStorage.getItem("role");
+    const grade = localStorage.getItem("grade");
+    const studentName = "Học sinh " + (grade || ""); // hoặc dùng form nhập tên nếu cần
+
+    if (role !== "student") {
+      window.location.href = "index.html";
+    }
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const lessonId = urlParams.get("id");
+
+    const lessons = JSON.parse(localStorage.getItem("lessons") || "[]");
+    const lesson = lessons.find(l => l.id === lessonId);
+
+    const exerciseContent = document.getElementById("exercise-content");
+    const form = document.getElementById("submit-form");
+
+    if (!lesson) {
+      exerciseContent.innerHTML = "<p>Không tìm thấy bài tập.</p>";
+    } else {
+      exerciseContent.innerHTML = `
+        <h3>${lesson.title}</h3>
+        <p>${lesson.content}</p>
+        <p><strong>Deadline:</strong> ${lesson.deadline || "Không có"}</p>
+      `;
+      form.style.display = "block";
+    }
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const answer = document.getElementById("student-answer").value.trim();
+
+      let score = null;
+      if (lesson.answerKey) {
+        score = answer === lesson.answerKey ? 10 : 0;
+      }
+
+      const submissions = JSON.parse(localStorage.getItem("submissions") || "[]");
+      submissions.push({
+        lessonId: lesson.id,
+        studentName,
+        submission: answer,
+        score: score,
+        feedback: score !== null ? (score === 10 ? "Chính xác!" : "Chưa đúng.") : null
+      });
+
+      localStorage.setItem("submissions", JSON.stringify(submissions));
+      alert("Đã nộp bài!");
+      window.location.href = `exercise-result.html?id=${lesson.id}`;
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard Học Sinh</title>
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+  <div class="role-selection-box">
+    <h2>Xin chào! Đây là bảng điều khiển của học sinh</h2>
+    <p>Khối lớp: <span id="grade-display"></span></p>
+
+    <div>
+      <h3>📘 Bài giảng</h3>
+      <div id="lesson-list"></div>
+    </div>
+
+    <div>
+      <h3>📝 Bài tập chưa nộp</h3>
+      <div id="exercise-list"></div>
+    </div>
+
+    <div>
+      <h3>✅ Bài tập đã nộp</h3>
+      <div id="submitted-list"></div>
+    </div>
+  </div>
+
+  <script>
+    const grade = localStorage.getItem('grade');
+    const role = localStorage.getItem('role');
+
+    // Bảo vệ route: nếu chưa chọn lớp → quay lại
+    if (!grade || role !== 'student') {
+      window.location.href = 'select-grade.html';
+    }
+
+    document.getElementById('grade-display').textContent = grade;
+
+    // Dữ liệu giả lập
+    const lessons = JSON.parse(localStorage.getItem('lessons') || '[]');
+    const submissions = JSON.parse(localStorage.getItem('submissions') || '[]');
+
+    const lessonList = document.getElementById('lesson-list');
+    const exerciseList = document.getElementById('exercise-list');
+    const submittedList = document.getElementById('submitted-list');
+
+    lessons.forEach(lesson => {
+      if (lesson.grade !== grade) return;
+
+      const div = document.createElement('div');
+      div.className = 'lesson';
+      div.innerHTML = `<h4>${lesson.title}</h4><p>${lesson.content.slice(0, 50)}...</p>`;
+
+      if (lesson.answerKey) {
+        // Là bài tập
+        const isSubmitted = submissions.find(sub => sub.lessonId === lesson.id);
+        if (isSubmitted) {
+          div.innerHTML += `<button onclick="location.href='exercise-result.html?id=${lesson.id}'">Xem kết quả</button>`;
+          submittedList.appendChild(div);
+        } else {
+          div.innerHTML += `<button onclick="location.href='exercise-do.html?id=${lesson.id}'">Làm bài</button>`;
+          exerciseList.appendChild(div);
+        }
+      } else {
+        // Là bài giảng
+        div.innerHTML += `<button onclick="location.href='lesson-detail.html?id=${lesson.id}'">Xem</button>`;
+        lessonList.appendChild(div);
+      }
+    });
+  </script>
+</body>
+</html>
