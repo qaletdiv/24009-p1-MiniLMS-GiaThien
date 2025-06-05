@@ -1,13 +1,49 @@
-lessons.forEach(lesson => {
-  const div = document.createElement('div');
-  div.className = 'lesson';
-  div.innerHTML = `
-    <h4>${lesson.title}</h4>
-    <p>Khối lớp: ${lesson.grade}</p>
-    <p>Loại: ${lesson.type === 'lecture' ? 'Bài giảng' : 'Bài tập'}</p>
-    ${lesson.type === 'exercise' ? `
-      <button onclick="location.href='teacher-submissions.html?id=${lesson.id}'">Xem bài đã nộp</button>
-    ` : ''}
-  `;
-  lessonList.appendChild(div);
-});
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard Giáo viên</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <div class="role-selection-box">
+    <h2>Xin chào Giáo viên!</h2>
+    <button onclick="location.href='create-lesson.html'">Tạo bài mới</button>
+
+    <h3>Danh sách bài đã đăng:</h3>
+    <div id="lesson-list"></div>
+  </div>
+
+  <script>
+    // Kiểm tra vai trò
+    const role = localStorage.getItem('role');
+    if (role !== 'teacher') {
+      window.location.href = 'index.html';
+    }
+
+    const lessonList = document.getElementById('lesson-list');
+    const lessons = JSON.parse(localStorage.getItem('lessons') || '[]');
+
+    if (lessons.length === 0) {
+      lessonList.innerHTML = "<p>Chưa có bài nào được đăng.</p>";
+    } else {
+      lessons.forEach(lesson => {
+        const div = document.createElement('div');
+        div.className = 'lesson';
+
+        div.innerHTML = `
+          <h4>${lesson.title}</h4>
+          <p><strong>Khối lớp:</strong> ${lesson.grade}</p>
+          <p><strong>Loại:</strong> ${lesson.type === 'exercise' ? 'Bài tập' : 'Bài giảng'}</p>
+          <p><strong>Deadline:</strong> ${lesson.deadline || 'Không có'}</p>
+          ${lesson.type === 'exercise'
+            ? `<button onclick="location.href='teacher-submissions.html?id=${lesson.id}'">Xem bài đã nộp</button>`
+            : ''}
+        `;
+
+        lessonList.appendChild(div);
+      });
+    }
+  </script>
+</body>
+</html>
