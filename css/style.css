@@ -1,77 +1,81 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-body{
-    font-family: "Inter", sans-serif;
-    text-align: center;
-    padding: 20px;
-    background-color: #f4f4f4;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    
-}
-button{
-    padding: 10px 20px;
-    margin: 10px;
-    font-size: 16px;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    background-color: rgb(140, 140, 235);
-
-}
-button:hover{
-    opacity: 0.8;
-}
-button:active{
-    opacity: 1;
-}
-.role-selection-box{
-    padding: 10px 20px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    text-align: center;
-    background-color: #fff;
-    max-width: 300px;
-    width: 100%;
-    
-}
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-top: 20px;
-}
-
-input[type="text"],
-textarea,
-select,
-input[type="date"] {
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 16px;
-  font-family: inherit;
-  width: 100%;
+/* Reset và mặc định */
+* {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
-  background-color: #fff;
 }
 
-textarea {
-  min-height: 120px;
-  resize: vertical;
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(to right, #f3f4f7, #e8eaf6);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
 }
 
-
-
+/* Box trắng trung tâm */
 .role-selection-box {
-  max-width: 500px;
-  width: 90%;
+  background-color: #fff;
+  padding: 40px 30px;
+  border-radius: 12px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+  animation: fadeIn 0.4s ease;
 }
 
+/* Tiêu đề */
+.role-selection-box h2,
+.role-selection-box h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+}
 
+/* Các nút */
+button {
+  display: inline-block;
+  margin: 10px 6px;
+  padding: 12px 24px;
+  background-color: #5c6bc0;
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: 0.25s;
+  box-shadow: 0 4px 12px rgba(92, 107, 192, 0.3);
+}
+
+button:hover {
+  background-color: #3f51b5;
+  transform: translateY(-2px);
+}
+
+/* Responsive tốt */
+@media (max-width: 480px) {
+  .role-selection-box {
+    padding: 25px 20px;
+  }
+
+  button {
+    width: 100%;
+    margin: 8px 0;
+  }
+}
+
+/* Fade in mượt mà */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
