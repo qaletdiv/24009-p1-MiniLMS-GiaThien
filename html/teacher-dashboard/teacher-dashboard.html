@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard Giáo viên</title>
+  <link rel="stylesheet" href="./teacher-dashboard.css">
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <a href="#" class="logo">
+        <span>Project 1</span>
+      </a>
+      <nav>
+        <ul>
+          <li><a href="#">Trang chủ</a></li>
+          <li><a href="#">Giới thiệu</a></li>
+          <li><a href="#">Liên hệ</a></li>
+        </ul>
+      </nav>
+      <div class="auth-buttons">
+        <button onclick="signOut()" class="btn btn-logout">Đăng xuất</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="teacher-container">
+      <h1 class="teacher-title">Bạn muốn tạo?</h1>
+      <button onclick="toCreateExcercise()" class="excercise">Bài tập</button>
+      <button onclick="toCreateLesson()" class="lesson">Bài giảng</button>
+
+      <div id="lesson-count" class="lesson-count"></div>
+      <div id="exercise-count" class="exercise-count"></div>
+
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-container">
+      <div class="footer-about">
+        <span class="footer-logo">Project 1</span>
+        <p>Đây là trang web làm ra với mục đích giáo dục</p>
+      </div>
+      <div class="footer-links">
+        <ul>
+          <li>
+            <a href="#">Trang chủ</a>
+          </li>
+          <li>
+            <a href="#">About us</a>
+          </li>
+          <li>
+            <a href="#">FAQ</a>
+          </li>
+        </ul>
+      </div>
+      <div class="footer-contact">
+        <h3>Liên hệ</h3>
+        <p><strong>Địa chỉ</strong> 123 Đường ABC, TP.HCM</p>
+        <p><strong>SĐT</strong> 0987 654 321</p>
+        <p><strong>Email</strong> nguyengiathien2404@gmail.com</p>
+      </div>
+    </div>
+    <div class="copyright">
+      © 2025 Project 1. All rights reserved.
+    </div>
+    <a href="../create-exercise/create-exercise.html"></a>
+  </footer>
+  <script src="./teacher-dashboard.js"></script>
+</body>
+</html>

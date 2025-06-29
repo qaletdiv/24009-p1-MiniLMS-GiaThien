@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Học sinh</title>
+  <link rel="stylesheet" href="./student-dashboard.css">
+</head>
+
+<body>
+  <header>
+    <div class="header-container">
+      <a href="#" class="logo">
+        <span>Project 1</span>
+      </a>
+      <nav>
+        <ul>
+          <li><a href="#">Trang chủ</a></li>
+          <li><a href="#">Giới thiệu</a></li>
+          <li><a href="#">Liên hệ</a></li>
+        </ul>
+      </nav>
+      <div class="auth-buttons">
+        <button onclick="signOut()" class="btn btn-logout">Đăng xuất</button>
+      </div>
+    </div>
+  </header>
+  <main>
+    <div class="dashboard-container">
+      <h1>Xin chào, học sinh!</h1>
+
+      <section class="lesson">
+        <h2>Bài giảng dành cho bạn</h2>
+        <ul id="lesson-list" class="item-list"></ul>
+      </section>
+
+      <section class="excercise">
+        <h2>Bài tập dành cho bạn</h2>
+        <ul id="exercise-list" class="item-list"></ul>
+      </section>
+    </div>
+  </main>
+  <footer>
+    <div class="footer-container">
+      <div class="footer-about">
+        <span class="footer-logo">Project 1</span>
+        <p>Đây là trang web làm ra với mục đích giáo dục</p>
+      </div>
+      <div class="footer-links">
+        <ul>
+          <li>
+            <a href="#">Trang chủ</a>
+          </li>
+          <li>
+            <a href="#">About us</a>
+          </li>
+          <li>
+            <a href="#">FAQ</a>
+          </li>
+        </ul>
+      </div>
+      <div class="footer-contact">
+        <h3>Liên hệ</h3>
+        <p><strong>Địa chỉ</strong> 123 Đường ABC, TP.HCM</p>
+        <p><strong>SĐT</strong> 0987 654 321</p>
+        <p><strong>Email</strong> nguyengiathien2404@gmail.com</p>
+      </div>
+    </div>
+    <div class="copyright">
+      © 2025 Project 1. All rights reserved.
+    </div>
+  </footer>
+  <script src="./student-dashboard.js"></script>
+</body>
+
+</html>

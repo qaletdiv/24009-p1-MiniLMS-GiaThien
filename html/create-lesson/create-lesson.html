@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Tạo bài giảng / bài tập</title>
+  <link rel="stylesheet" href="./create-lesson.css" />
+</head>
+
+<body>
+  <header>
+    <div class="header-container">
+      <a href="#" class="logo">
+        <span>Project 1</span>
+      </a>
+      <nav>
+        <ul>
+          <li><a href="#">Trang chủ</a></li>
+          <li><a href="#">Giới thiệu</a></li>
+          <li><a href="#">Liên hệ</a></li>
+        </ul>
+      </nav>
+      <div class="auth-buttons">
+        <button onclick="signOut()" class="btn btn-logout">Đăng xuất</button>
+      </div>
+    </div>
+  </header>
+  <main>
+    <div class="create-lesson-container">
+      <h1>Tạo bài giảng mới</h1>
+      <form class="lesson-form">
+        <input type="text" id="title" placeholder="Tiêu đề bài" class="form-control" required />
+        <select id="grade" class="form-control" required>
+          <option value="">-- Chọn khối lớp --</option>
+          <option value="3">Lớp 3</option>
+          <option value="4">Lớp 4</option>
+          <option value="5">Lớp 5</option>
+          <option value="6">Lớp 6</option>
+          <option value="7">Lớp 7</option>
+          <option value="8">Lớp 8</option>
+          <option value="9">Lớp 9</option>
+          <option value="10">Lớp 10</option>
+          <option value="11">Lớp 11</option>
+          <option value="12">Lớp 12</option>
+        </select>
+        
+        <textarea id="content" placeholder="Nội dung bài giảng" class="form-control"></textarea>
+        <button type="submit" id="submit" >Tạo bài</button>
+      </form>
+    </div>
+  </main>
+  <footer>
+    <div class="footer-container">
+      <div class="footer-about">
+        <span class="footer-logo">Project 1</span>
+        <p>Đây là trang web làm ra với mục đích giáo dục</p>
+      </div>
+      <div class="footer-links">
+        <ul>
+          <li>
+            <a href="#">Trang chủ</a>
+          </li>
+          <li>
+            <a href="#">About us</a>
+          </li>
+          <li>
+            <a href="#">FAQ</a>
+          </li>
+        </ul>
+      </div>
+      <div class="footer-contact">
+        <h3>Liên hệ</h3>
+        <p><strong>Địa chỉ</strong> 123 Đường ABC, TP.HCM</p>
+        <p><strong>SĐT</strong> 0987 654 321</p>
+        <p><strong>Email</strong> nguyengiathien2404@gmail.com</p>
+      </div>
+    </div>
+    <div class="copyright">
+      © 2025 Project 1. All rights reserved.
+    </div>
+  </footer>
+
+
+
+  <script src="create-lesson.js">
+
+  </script>
+</body>
+
+</html>

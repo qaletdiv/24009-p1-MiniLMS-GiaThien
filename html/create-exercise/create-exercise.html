@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Tạo bài tập</title>
+    <link rel="stylesheet" href="./create-exercise.css">
+</head>
+
+<body>
+    <header>
+        <div class="header-container">
+            <a href="#" class="logo">
+                <span>Project 1</span>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="#">Trang chủ</a></li>
+                    <li><a href="#">Giới thiệu</a></li>
+                    <li><a href="#">Liên hệ</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons">
+                <button onclick="signOut()" class="btn btn-logout">Đăng xuất</button>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="dashboard-container">
+            <h1 class="dashboard-title">Tạo bài tập mới</h1>
+            <form id="exercise-form">
+                <div class="form-group">
+                    <label for="exercise-title">Tiêu đề bài tập</label>
+                    <input type="text" id="exercise-title" class="form-control" placeholder="Nhập tiêu đề bài tập"
+                        required>
+                </div>
+                <div class="form-group">
+                    <label for="class-select">Lớp</label>
+                    <select id="class-select" class="form-control" required>
+                        <option value="" selected disabled>Chọn lớp</option>
+                        <option value="3">Lớp 3</option>
+                        <option value="4">Lớp 4</option>
+                        <option value="5">Lớp 5</option>
+                        <option value="6">Lớp 6</option>
+                        <option value="7">Lớp 7</option>
+                        <option value="8">Lớp 8</option>
+                        <option value="9">Lớp 9</option>
+                        <option value="10">Lớp 10</option>
+                        <option value="11">Lớp 11</option>
+                        <option value="12">Lớp 12</option>
+                    </select>
+                </div>
+                <div class="form-control">
+                    <label>Hạn nộp</label>
+                    <input type="date" id="deadline" class="form-control" />
+                </div>
+                <div id="exercises-container">
+                    <div class="exercise-item">
+                        <div class="form-group">
+                            <label>Câu hỏi 1</label>
+                            <textarea class="form-control exercise-question" rows="3" placeholder="Nhập câu hỏi"
+                                required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Đáp án đúng</label>
+                            <input type="text" class="form-control correct-answer" placeholder="Nhập đáp án đúng"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label>Điểm số</label>
+                            <input type="number" class="form-control exercise-points" placeholder="Nhập điểm số" min="1"
+                                required>
+                        </div>
+
+                    </div>
+                </div>
+
+                <button type="button" id="add-exercise" class="btn">Thêm câu hỏi</button>
+                <button type="submit" class="btn-submit">Lưu bài tập</button>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-about">
+                <span class="footer-logo">Project 1</span>
+                <p>Đây là trang web làm ra với mục đích giáo dục</p>
+            </div>
+            <div class="footer-links">
+                <ul>
+                    <li>
+                        <a href="#">Trang chủ</a>
+                    </li>
+                    <li>
+                        <a href="#">About us</a>
+                    </li>
+                    <li>
+                        <a href="#">FAQ</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h3>Liên hệ</h3>
+                <p><strong>Địa chỉ</strong> 123 Đường ABC, TP.HCM</p>
+                <p><strong>SĐT</strong> 0987 654 321</p>
+                <p><strong>Email</strong> nguyengiathien2404@gmail.com</p>
+            </div>
+        </div>
+        <div class="copyright">
+            © 2025 Project 1. All rights reserved.
+        </div>
+        <a href="../create-exercise/create-exercise.html"></a>
+    </footer>
+
+    <script src="./create-excercise.js"></script>
+</body>
+
+</html>

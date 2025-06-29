@@ -6,32 +6,78 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../css/style.css">
-    <title>Chọn vai trò</title>
+    <link rel="stylesheet" href="style.css">
+    <title>Project 1</title>
 </head>
 <body>
-    <div class="role-selection-box">
-        <h1>Bạn là:</h1>
-        <div class="role-selection">
-            <button onclick="selectRole('student')">Học sinh</button><br>
-            <button onclick="selectRole('teacher')">Giáo Viên</button>
+    <header>
+        <div class="header-container">
+            <a href="#" class="logo">
+                <span>Project 1</span>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="#">Trang chủ</a></li>
+                    <li><a href="#">Giới thiệu</a></li>
+                    <li><a href="#">Liên hệ</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons">
+                <button onclick="toSignInPage()" class="btn btn-login">Đăng nhập</button>
+                <button onclick="toRegisterPage()" class="btn btn-register">Đăng ký</button>
+            </div>
         </div>
-    </div>
-
-    <script>
-        function selectRole(role){
-            localStorage.setItem('role',role);
-            if(role==='student'){
-                const grade=localStorage.getItem('grade');
-                if(grade){
-                    window.location.href="student-dashboard.html";
-                } else{
-                    window.location.href="select-grade.html";
-                }
-            } else {
-                window.location.href="teacher-dashboard.html"
-            }
-        }
-    </script>
+    </header>
+    <main>
+        <section class="hero">
+            <h1>Chào mừng đến với mini LMS</h1>
+            <p>Hệ thống được tạo ra với mục đích hỗ trợ giáo viên và học sinh trong việc đăng bài và làm bài tập</p>
+            <button class="btn btn-register">Khám phá ngay</button>
+        </section>
+        
+        <section class="features">
+            <article class="feature-card">
+                <h3>Với giáo viên</h3>
+                <p>Đây là nơi để thầy cô đăng bài giảng, giao bài tập cho học sinh.</p>
+            </article>
+            <article class="feature-card">
+                <h3>Với học sinh</h3>
+                <p>Đây là nơi để các em xem bài giảng, làm bài tập về nhà của giáo viên</p>
+            </article>
+        </section>
+        
+    </main>
+    <footer>
+        <div class="footer-container">
+            <div class="footer-about">
+                <span class="footer-logo">Project 1</span>
+                <p>Đây là trang web làm ra với mục đích giáo dục</p>
+            </div>
+            <div class="footer-links">
+                <ul>
+                    <li>
+                        <a href="#">Trang chủ</a>
+                    </li>
+                    <li>
+                        <a href="#">About us</a>
+                    </li>
+                    <li>
+                        <a href="#">FAQ</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h3>Liên hệ</h3>
+                <p><strong>Địa chỉ</strong> 123 Đường ABC, TP.HCM</p>
+                <p><strong>SĐT</strong> 0987 654 321</p>
+                <p><strong>Email</strong> nguyengiathien2404@gmail.com</p>
+            </div>
+        </div>
+        <div class="copyright">
+                © 2025 Project 1. All rights reserved.
+        </div>
+        
+    </footer>
+    <script src="./index.js"></script>
 </body>
 </html>
