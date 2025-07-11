@@ -33,44 +33,46 @@ function signOut() {
   });
 
   
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();
+form.addEventListener("submit", function (e) {
+  e.preventDefault();
 
-    const title = document.getElementById("exercise-title").value.trim();
-    const grade = document.getElementById("class-select").value;
-    const questionEls = document.querySelectorAll(".exercise-item");
+  const title = document.getElementById("exercise-title").value.trim();
+  const grade = document.getElementById("class-select").value;
+  const deadline = document.getElementById("deadline").value; 
 
-    const questions = [];
+  const questionEls = document.querySelectorAll(".exercise-item");
+  const questions = [];
 
-    questionEls.forEach((el) => {
-      const question = el.querySelector(".exercise-question").value.trim();
-      const answer = el.querySelector(".correct-answer").value.trim();
-      const points = parseFloat(el.querySelector(".exercise-points").value);
+  questionEls.forEach((el) => {
+    const question = el.querySelector(".exercise-question").value.trim();
+    const answer = el.querySelector(".correct-answer").value.trim();
+    const points = parseFloat(el.querySelector(".exercise-points").value);
 
-      if (question && answer && !isNaN(points)) {
-        questions.push({ question, answer, points });
-      }
-    });
-
-    if (questions.length === 0) {
-      alert("Bạn cần nhập ít nhất một câu hỏi hợp lệ.");
-      return;
+    if (question && answer && !isNaN(points)) {
+      questions.push({ question, answer, points });
     }
-
-    const newExercise = {
-      title,
-      grade,
-      createdAt: new Date().toISOString(),
-      questions,
-    };
-
-    const existing = JSON.parse(localStorage.getItem("exercises")) || [];
-    existing.push(newExercise);
-    localStorage.setItem("exercises", JSON.stringify(existing));
-
-    alert("Lưu bài tập thành công!");
-    form.reset();
-    exercisesContainer.innerHTML = ""; // xóa hết câu hỏi
-    addButton.click(); // thêm câu hỏi đầu tiên mới
   });
+
+  if (!title || !grade || !deadline || questions.length === 0) {
+    alert("Vui lòng điền đầy đủ thông tin và ít nhất một câu hỏi.");
+    return;
+  }
+
+  const newExercise = {
+    title,
+    grade,
+    deadline, 
+    createdAt: new Date().toISOString(),
+    questions,
+  };
+
+  const existing = JSON.parse(localStorage.getItem("exercises")) || [];
+  existing.push(newExercise);
+  localStorage.setItem("exercises", JSON.stringify(existing));
+
+  alert("Lưu bài tập thành công!");
+  form.reset();
+  exercisesContainer.innerHTML = ""; // Xóa hết câu hỏi cũ
+  addButton.click(); // Tự thêm câu hỏi đầu tiên mới
+});
 

@@ -1,54 +1,62 @@
-const roleSelect = document.getElementById('role');
-const gradeContainer = document.getElementById('grade-container');
-const gradeSelect = document.getElementById('grade');
-function toRegisterPage(){
-    window.location.href = "../register/register.html";
+function toSignInPage() {
+  window.location.href = "../signIn/signIn.html";
 }
-function toSignInPage(){
-    window.location.href = "../signIn/signIn.html"
+
+function toRegisterPage() {
+  window.location.href = "../register/register.html";
 }
-roleSelect.addEventListener('change',function() {
-    if(this.value==='student'){
-        gradeContainer.style.display = 'block';
-        gradeSelect.setAttribute('require','require')
-    }
-    else{
-        gradeContainer.style.display = 'none';
-        gradeSelect.removeAttribute('required')
-        gradeSelect.value=''
-    }
-})
-document.querySelector('form').addEventListener('submit',function(e){
+const modalClose = document.getElementById("modal-close");
+
+modalClose.addEventListener("click", () => {
+  modal.style.display = "none";
+});
+
+const modal = document.getElementById("modal-role");
+const modalRoleSelect = document.getElementById("modal-role-select");
+const modalGradeContainer = document.getElementById("modal-grade");
+const modalGradeSelect = document.getElementById("modal-grade-select");
+const modalConfirm = document.getElementById("modal-confirm");
+
+const hiddenRole = document.getElementById("role");
+const hiddenGrade = document.getElementById("grade");
+
+const form = document.querySelector("form");
+
+
+form.addEventListener("submit", function (e) {
+  if (!hiddenRole.value) {
     e.preventDefault();
-    const username=document.getElementById('username').value.trim();
-    const password=document.getElementById('password').value;
-    const confirmPassword=document.getElementById('confirm-password').value;
-    const role = document.getElementById('role').value;
-    const grade = document.getElementById('grade').value;
+    modal.style.display = "block";
+  }
+});
 
-    if(password!==confirmPassword){
-        alert('Mật khẩu không khớp');
-        return;
-    }
 
-    let users = JSON.parse(localStorage.getItem('users'))||[];
+modalRoleSelect.addEventListener("change", () => {
+  if (modalRoleSelect.value === "student") {
+    modalGradeContainer.style.display = "block";
+  } else {
+    modalGradeContainer.style.display = "none";
+  }
+});
 
-    const userExists = users.some(user=>user.username===username);
-        if (userExists){
-            alert('Tên đăng nhập đã tồn tại');
-            return;
-        }
-    
 
-    const newUser={
-        username,
-        password,
-        role,
-        grade: role === 'student' ? grade : null,
-    }
-   
-    users.push(newUser);
-    localStorage.setItem('users',JSON.stringify(users));
-    alert ('Đăng ký thành công');
-    toSignInPage();
-})
+modalConfirm.addEventListener("click", () => {
+  const roleVal = modalRoleSelect.value;
+  const gradeVal = modalGradeSelect.value;
+
+  if (!roleVal) {
+    alert("Vui lòng chọn vai trò.");
+    return;
+  }
+
+  if (roleVal === "student" && !gradeVal) {
+    alert("Vui lòng chọn lớp.");
+    return;
+  }
+
+  hiddenRole.value = roleVal;
+  hiddenGrade.value = roleVal === "student" ? gradeVal : "";
+
+    modal.style.display = "none";
+    form.requestSubmit(); 
+  });

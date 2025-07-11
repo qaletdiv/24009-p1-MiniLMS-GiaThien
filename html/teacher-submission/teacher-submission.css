@@ -82,87 +82,65 @@ nav ul li a:hover {
 .btn-logout:hover {
     opacity: 0.5;
 }
-
-
 /* header */
-main{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.submission-container {
+  max-width: 900px;
+  margin: 30px auto;
+  padding: 20px;
+  background: white;
+  border-radius: 8px;
 }
-.teacher-container{
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 500px;
-    padding: 2.5rem;
-    margin: 2rem 0;
+.submission {
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
 }
-.teacher-title{
-    color: #1864ab;
-    text-align: center;
-    margin-bottom: 2rem;
-    font-size: 1.8rem;
+.correct {
+  color: green;
 }
-.excercise{
-    display: block;
-    width: 100%;
-    padding: 0.9rem;
-    background-color: #228be6;
-    border: none;
-    border-radius: 8px;
-    color: white;
-    font-size: 1rem;
-    font-weight: 500;
-    margin-bottom: 1.5rem;
-    cursor: pointer;
-    opacity: 1;
+.incorrect {
+  color: red;
 }
-.excercise:hover{
-    opacity: 0.8;
+input[type="number"] {
+  padding: 6px;
+  margin: 6px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 14px;
+  background-color: #fff;
+  transition: border-color 0.3s;
 }
-.lesson{
-    display: block;
-    width: 100%;
-    padding: 0.9rem;
-    background-color: #228be6;
-    border: none;
-    border-radius: 8px;
-    color: white;
-    font-weight: 500;
-    font-size: 1rem;
-    cursor: pointer;
-    opacity: 1;
+
+input[type="number"]:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 3px rgba(0, 123, 255, 0.4);
 }
-.lesson:hover{
-    opacity: 0.8;
+.resizable-textarea {
+  width: 100%;
+  max-width: 400px;
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical; 
+  box-sizing: border-box;
 }
-#exercise-submitted,
-#exercise-count,
-#lesson-count{
-    text-align: center;
-    margin: 1rem 0;
-}
-#exercise-submitted a,
-#exercise-count a,
-#lesson-count a{
-   color: #495057;
-   text-decoration: none;
-   font-size: 1.2rem;
-   opacity: 0.8;
-}
-#exercise-submitted a:hover,
-#exercise-count a:hover,
-#lesson-count a:hover{
-    opacity: 1;
-    text-decoration: underline;
+
+.btn-save {
+  margin-top: 10px;
+  padding: 6px 12px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
 
 
 /* main */
-
 footer {
     background-color: #e7f5ff;
     padding: 3rem 2rem;

@@ -85,79 +85,27 @@ nav ul li a:hover {
 
 
 /* header */
-main{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+
+.result-container {
+  max-width: 800px;
+  margin: 30px auto;
+  padding: 20px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.05);
 }
-.teacher-container{
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 500px;
-    padding: 2.5rem;
-    margin: 2rem 0;
+.result-item {
+  border-left: 5px solid #ddd;
+  padding-left: 15px;
+  margin-bottom: 20px;
 }
-.teacher-title{
-    color: #1864ab;
-    text-align: center;
-    margin-bottom: 2rem;
-    font-size: 1.8rem;
+.correct {
+  color: green;
 }
-.excercise{
-    display: block;
-    width: 100%;
-    padding: 0.9rem;
-    background-color: #228be6;
-    border: none;
-    border-radius: 8px;
-    color: white;
-    font-size: 1rem;
-    font-weight: 500;
-    margin-bottom: 1.5rem;
-    cursor: pointer;
-    opacity: 1;
+.incorrect {
+  color: red;
 }
-.excercise:hover{
-    opacity: 0.8;
-}
-.lesson{
-    display: block;
-    width: 100%;
-    padding: 0.9rem;
-    background-color: #228be6;
-    border: none;
-    border-radius: 8px;
-    color: white;
-    font-weight: 500;
-    font-size: 1rem;
-    cursor: pointer;
-    opacity: 1;
-}
-.lesson:hover{
-    opacity: 0.8;
-}
-#exercise-submitted,
-#exercise-count,
-#lesson-count{
-    text-align: center;
-    margin: 1rem 0;
-}
-#exercise-submitted a,
-#exercise-count a,
-#lesson-count a{
-   color: #495057;
-   text-decoration: none;
-   font-size: 1.2rem;
-   opacity: 0.8;
-}
-#exercise-submitted a:hover,
-#exercise-count a:hover,
-#lesson-count a:hover{
-    opacity: 1;
-    text-decoration: underline;
-}
+
 
 
 
@@ -224,7 +172,6 @@ footer {
     color: #495057;
     font-size: 0.9rem;
 }
-
 @media (max-width: 480px) {
   .header-container {
     flex-direction: column;

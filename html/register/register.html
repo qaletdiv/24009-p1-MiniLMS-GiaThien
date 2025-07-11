@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./register.css">
     <title>Đăng ký</title>
 </head>
+
 <body>
     <header>
         <div class="header-container">
@@ -31,39 +33,54 @@
             <form>
                 <div class="form-group">
                     <label for="username">Tên đăng nhập:</label>
-                    <input type="text" name="username" id="username" class="form-control" placeholder="Nhập tên đăng nhập" required>
+                    <input type="text" name="username" id="username" class="form-control"
+                        placeholder="Nhập tên đăng nhập" required>
                 </div>
                 <div class="form-group">
                     <label for="password">Mật khẩu:</label>
-                    <input type="password" name="password" id="password" class="form-control" placeholder="Nhập mật khẩu khẩu" required>
+                    <input type="password" name="password" id="password" class="form-control"
+                        placeholder="Nhập mật khẩu khẩu" required>
                 </div>
                 <div class="form-group">
                     <label for="confirm-password">Xác nhận mật khẩu:</label>
-                    <input type="password" name="confirm-password" id="confirm-password" class="form-control" placeholder="Nhập lại mật khẩu" required>
+                    <input type="password" name="confirm-password" id="confirm-password" class="form-control"
+                        placeholder="Nhập lại mật khẩu" required>
                 </div>
-                <div class="form-group">
-                    <label for="role">Bạn là?</label>
-                    <select name="role" id="role" class="select-role" required>
-                        <option value="" selected disabled>Chọn vai trò</option>
-                        <option value="student">Học sinh</option>
-                        <option value="teacher">Giáo viên</option>
-                    </select>
-                </div>
-                <div id="grade-container" class="form-group grade-select">
-                    <label for="grade">Lớp:</label>
-                    <select name="grade" id="grade" class="form-control">
-                        <option value="" selected disabled>Chọn lớp</option>
-                        <option value="3">Lớp 3</option>
-                        <option value="4">Lớp 4</option>
-                        <option value="5">Lớp 5</option>
-                        <option value="6">Lớp 6</option>
-                        <option value="7">Lớp 7</option>
-                        <option value="8">Lớp 8</option>
-                        <option value="9">Lớp 9</option>
-                        <option value="10">Lớp 10</option>
-                        <option value="11">Lớp 11</option>
-                        <option value="12">Lớp 12</option>
-                    </select>
+                
+                <input type="hidden" id="role" name="role" />
+                <input type="hidden" id="grade" name="grade" />
+
+                
+                <div id="modal-role" class="modal">
+                    <div class="modal-content">
+                        <span class="modal-close" id="modal-close">&times;</span>
+                        <h3>Chọn vai trò</h3>
+                        <select id="modal-role-select" >
+                            <option value="" disabled selected>Chọn vai trò</option>
+                            <option value="student">Học sinh</option>
+                            <option value="teacher">Giáo viên</option>
+                        </select>
+
+                        <div id="modal-grade" style="display: none; margin-top: 1rem;">
+                            <label for="modal-grade-select">Chọn lớp</label>
+                            <select id="modal-grade-select">
+                                <option value="" disabled selected>Chọn lớp</option>
+                                <option value="3">Lớp 3</option>
+                                <option value="4">Lớp 4</option>
+                                <option value="5">Lớp 5</option>
+                                <option value="6">Lớp 6</option>
+                                <option value="7">Lớp 7</option>
+                                <option value="8">Lớp 8</option>
+                                <option value="9">Lớp 9</option>
+                                <option value="10">Lớp 10</option>
+                                <option value="11">Lớp 11</option>
+                                <option value="12">Lớp 12</option>
+                            </select>
+                        </div>
+
+                        <button type="button" id="modal-confirm" class="btn-submit" style="margin-top: 1rem;">Xác
+                            nhận</button>
+                    </div>
                 </div>
                 <button type="submit" class="btn-submit">Đăng ký</button>
                 <p class="login-link">Đã có tài khoản?<a href="../signIn/signIn.html"> Đăng nhập ngay</a></p>
@@ -97,10 +114,11 @@
             </div>
         </div>
         <div class="copyright">
-                © 2025 Project 1. All rights reserved.
+            © 2025 Project 1. All rights reserved.
         </div>
     </footer>
-    
+
     <script src="./register.js"></script>
 </body>
+
 </html>

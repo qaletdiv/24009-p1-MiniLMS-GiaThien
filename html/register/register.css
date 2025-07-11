@@ -174,7 +174,7 @@ main {
   }
 }
 
-.btn-submit{
+.btn-submit {
   width: 100%;
   padding: 0.9rem;
   background-color: #228be6;
@@ -186,21 +186,76 @@ main {
   cursor: pointer;
   opacity: 1;
 }
-.btn-submit:hover{
+
+.btn-submit:hover {
   opacity: 0.8;
 }
-.login-link{
+
+.login-link {
   text-align: center;
   margin-top: 1.5rem;
   color: #495057;
 }
-.login-link a{
+
+.login-link a {
   color: #228be6;
   text-decoration: none;
   font-weight: 500;
 }
-.login-link a:hover{
+
+.login-link a:hover {
   text-decoration: underline;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  background-color: white;
+  margin: 10% auto;
+  padding: 20px;
+  width: 90%;
+  max-width: 400px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+
+}
+.modal-content h3 {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+.modal-role-select,
+.modal-grade-select {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.modal-close {
+  position: relative;
+  display: flex;
+  justify-self: flex-end;
+  top: 8px;
+  right: 12px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  cursor: pointer;
+}
+
+.modal-close:hover {
+  color: red;
 }
 
 /* main */
@@ -282,7 +337,8 @@ footer {
     width: 100%;
   }
 
-  button, .btn {
+  button,
+  .btn {
     width: 100%;
   }
 
@@ -307,7 +363,8 @@ footer {
     padding: 16px;
   }
 
-  .form-control, .btn {
+  .form-control,
+  .btn {
     font-size: 1rem;
   }
 }

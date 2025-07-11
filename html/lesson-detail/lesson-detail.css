@@ -85,80 +85,28 @@ nav ul li a:hover {
 
 
 /* header */
-main{
+
+.header-container {
+    background: #007bff;
+    padding: 10px 20px;
+    color: white;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
 }
-.teacher-container{
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 500px;
-    padding: 2.5rem;
-    margin: 2rem 0;
-}
-.teacher-title{
-    color: #1864ab;
-    text-align: center;
-    margin-bottom: 2rem;
-    font-size: 1.8rem;
-}
-.excercise{
-    display: block;
-    width: 100%;
-    padding: 0.9rem;
-    background-color: #228be6;
-    border: none;
+
+.lesson-container {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 20px;
+    background: white;
     border-radius: 8px;
-    color: white;
-    font-size: 1rem;
-    font-weight: 500;
-    margin-bottom: 1.5rem;
-    cursor: pointer;
-    opacity: 1;
-}
-.excercise:hover{
-    opacity: 0.8;
-}
-.lesson{
-    display: block;
-    width: 100%;
-    padding: 0.9rem;
-    background-color: #228be6;
-    border: none;
-    border-radius: 8px;
-    color: white;
-    font-weight: 500;
-    font-size: 1rem;
-    cursor: pointer;
-    opacity: 1;
-}
-.lesson:hover{
-    opacity: 0.8;
-}
-#exercise-submitted,
-#exercise-count,
-#lesson-count{
-    text-align: center;
-    margin: 1rem 0;
-}
-#exercise-submitted a,
-#exercise-count a,
-#lesson-count a{
-   color: #495057;
-   text-decoration: none;
-   font-size: 1.2rem;
-   opacity: 0.8;
-}
-#exercise-submitted a:hover,
-#exercise-count a:hover,
-#lesson-count a:hover{
-    opacity: 1;
-    text-decoration: underline;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
 }
 
+.lesson-container p {
+    line-height: 1.6;
+}
 
 
 /* main */
@@ -226,66 +174,68 @@ footer {
 }
 
 @media (max-width: 480px) {
-  .header-container {
-    flex-direction: column;
-    align-items: flex-start;
-  }
+    .header-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
 
-  nav ul {
-    flex-direction: column;
-    gap: 10px;
-  }
+    nav ul {
+        flex-direction: column;
+        gap: 10px;
+    }
 
-  .auth-buttons {
-    flex-direction: column;
-    width: 100%;
-  }
+    .auth-buttons {
+        flex-direction: column;
+        width: 100%;
+    }
 
-  button, .btn {
-    width: 100%;
-  }
+    button,
+    .btn {
+        width: 100%;
+    }
 
-  .form-control {
-    font-size: 1rem;
-  }
+    .form-control {
+        font-size: 1rem;
+    }
 
-  .container {
-    padding: 10px;
-  }
+    .container {
+        padding: 10px;
+    }
 }
 
 /* Mobile lớn / tablet nhỏ (≤ 768px) */
 @media (max-width: 768px) {
-  main {
-    padding: 10px;
-  }
+    main {
+        padding: 10px;
+    }
 
-  .dashboard-container,
-  .teacher-container,
-  .create-exercise-container {
-    padding: 16px;
-  }
+    .dashboard-container,
+    .teacher-container,
+    .create-exercise-container {
+        padding: 16px;
+    }
 
-  .form-control, .btn {
-    font-size: 1rem;
-  }
+    .form-control,
+    .btn {
+        font-size: 1rem;
+    }
 }
 
 /* Tablet đến Laptop (≤ 992px) */
 @media (max-width: 992px) {
-  .dashboard-container {
-    grid-template-columns: 1fr;
-  }
+    .dashboard-container {
+        grid-template-columns: 1fr;
+    }
 
-  nav ul {
-    gap: 16px;
-    flex-wrap: wrap;
-  }
+    nav ul {
+        gap: 16px;
+        flex-wrap: wrap;
+    }
 }
 
 /* Desktop lớn (> 1200px) */
 @media (min-width: 1200px) {
-  .container {
-    max-width: 1200px;
-  }
+    .container {
+        max-width: 1200px;
+    }
 }
