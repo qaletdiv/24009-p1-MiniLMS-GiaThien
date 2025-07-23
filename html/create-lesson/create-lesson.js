@@ -16,6 +16,7 @@ form.addEventListener('submit', function(e){
       title,
       grade,
       content,
+      createdAt: new Date().toISOString(),
     }
 
     const lessons = JSON.parse(localStorage.getItem('lessons'))||[];

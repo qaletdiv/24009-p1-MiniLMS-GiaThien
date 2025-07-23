@@ -2,6 +2,9 @@ function signOut() {
   localStorage.removeItem('currentUser');
   window.location.href = "../signIn/signIn.html";
 }
+function toTeacherDashboard(){
+  window.location.href = "../teacher-dashboard/teacher-dashboard.html";
+}
 
 
   const form = document.getElementById("exercise-form");
