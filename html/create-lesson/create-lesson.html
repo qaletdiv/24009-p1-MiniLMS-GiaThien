@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="vi">
-
 <head>
   <meta charset="UTF-8" />
   <title>Tạo bài giảng / bài tập</title>
@@ -10,12 +9,12 @@
 <body>
   <header>
     <div class="header-container">
-      <a href="#" class="logo">
+      <a href="/html/index.html" class="logo">
         <span>Project 1</span>
       </a>
       <nav>
         <ul>
-          <li><a href="#">Trang chủ</a></li>
+          <li><a href="/html/index.html">Trang chủ</a></li>
           <li><a href="#">Giới thiệu</a></li>
           <li><a href="#">Liên hệ</a></li>
         </ul>
@@ -25,30 +24,109 @@
       </div>
     </div>
   </header>
+
   <main>
     <div class="create-lesson-container">
-      <h1>Tạo bài giảng mới</h1>
-      <form class="lesson-form">
-        <input type="text" id="title" placeholder="Tiêu đề bài" class="form-control" required />
-        <select id="grade" class="form-control" required>
-          <option value="">-- Chọn khối lớp --</option>
-          <option value="3">Lớp 3</option>
-          <option value="4">Lớp 4</option>
-          <option value="5">Lớp 5</option>
-          <option value="6">Lớp 6</option>
-          <option value="7">Lớp 7</option>
-          <option value="8">Lớp 8</option>
-          <option value="9">Lớp 9</option>
-          <option value="10">Lớp 10</option>
-          <option value="11">Lớp 11</option>
-          <option value="12">Lớp 12</option>
+      <h1>Tạo bài mới</h1>
+
+      <!-- Loại bài -->
+      <div class="form-group">
+        <label for="type">Loại bài</label>
+        <select id="type" class="form-control" required>
+          <option value="">-- Chọn loại bài muốn tạo --</option>
+          <option value="Lesson">Bài giảng</option>
+          <option value="Exercise">Bài tập</option>
         </select>
-        
-        <textarea id="content" placeholder="Nội dung bài giảng" class="form-control"></textarea>
-        <button type="submit" id="submit" >Tạo bài</button>
+      </div>
+
+      <!-- === FORM BÀI GIẢNG === -->
+      <form id="lecture-form" class="lesson-form">
+        <div id="lecture-section">
+          <div class="form-group">
+            <label for="grade">Khối lớp</label>
+            <select id="grade" name="grade" class="form-control" required>
+              <option value="">-- Chọn khối lớp --</option>
+              <option value="3">Lớp 3</option>
+              <option value="4">Lớp 4</option>
+              <option value="5">Lớp 5</option>
+              <option value="6">Lớp 6</option>
+              <option value="7">Lớp 7</option>
+              <option value="8">Lớp 8</option>
+              <option value="9">Lớp 9</option>
+              <option value="10">Lớp 10</option>
+              <option value="11">Lớp 11</option>
+              <option value="12">Lớp 12</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="title">Tiêu đề bài giảng</label>
+            <input type="text" id="title" name="title" placeholder="Tiêu đề bài" class="form-control" required />
+          </div>
+
+          <div class="form-group">
+            <label for="content">Nội dung</label>
+            <textarea id="content" name="content" placeholder="Nội dung bài giảng" class="form-control" required></textarea>
+          </div>
+
+          <button type="submit" class="btn" id="submit">Tạo bài giảng</button>
+        </div>
+      </form>
+
+      <!-- === FORM BÀI TẬP === -->
+      <form id="exercise-form">
+        <div id="exercise-section">
+          <div class="form-group">
+            <label for="exercise-title">Tiêu đề bài tập</label>
+            <input type="text" id="exercise-title" name="exercise-title" class="form-control" placeholder="Nhập tiêu đề bài tập" required>
+          </div>
+
+          <div class="form-group">
+            <label for="class-select">Lớp</label>
+            <select id="class-select" name="class-select" class="form-control" required>
+              <option value="" selected disabled>Chọn lớp</option>
+              <option value="3">Lớp 3</option>
+              <option value="4">Lớp 4</option>
+              <option value="5">Lớp 5</option>
+              <option value="6">Lớp 6</option>
+              <option value="7">Lớp 7</option>
+              <option value="8">Lớp 8</option>
+              <option value="9">Lớp 9</option>
+              <option value="10">Lớp 10</option>
+              <option value="11">Lớp 11</option>
+              <option value="12">Lớp 12</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="deadline">Hạn nộp</label>
+            <input type="date" id="deadline" name="deadline" class="form-control" required />
+          </div>
+
+          <div id="exercises-container">
+            <div class="exercise-item">
+              <div class="form-group">
+                <label>Câu hỏi 1</label>
+                <textarea class="form-control exercise-question" name="question-1" rows="3" placeholder="Nhập câu hỏi" required></textarea>
+              </div>
+              <div class="form-group">
+                <label>Đáp án đúng</label>
+                <input type="text" class="form-control correct-answer" name="answer-1" placeholder="Nhập đáp án đúng" required>
+              </div>
+              <div class="form-group">
+                <label>Điểm số</label>
+                <input type="number" class="form-control exercise-points" name="points-1" placeholder="Nhập điểm số" min="1" required>
+              </div>
+            </div>
+          </div>
+
+          <button type="button" id="add-exercise" class="btn" >Thêm câu hỏi</button>
+          <button type="submit" class="btn" id="submit">Tạo bài tập</button>
+        </div>
       </form>
     </div>
   </main>
+
   <footer>
     <div class="footer-container">
       <div class="footer-about">
@@ -57,15 +135,9 @@
       </div>
       <div class="footer-links">
         <ul>
-          <li>
-            <a href="#">Trang chủ</a>
-          </li>
-          <li>
-            <a href="#">About us</a>
-          </li>
-          <li>
-            <a href="#">FAQ</a>
-          </li>
+          <li><a href="#">Trang chủ</a></li>
+          <li><a href="#">About us</a></li>
+          <li><a href="#">FAQ</a></li>
         </ul>
       </div>
       <div class="footer-contact">
@@ -80,11 +152,6 @@
     </div>
   </footer>
 
-
-
-  <script src="create-lesson.js">
-
-  </script>
+  <script src="create-lesson.js"></script>
 </body>
-
 </html>

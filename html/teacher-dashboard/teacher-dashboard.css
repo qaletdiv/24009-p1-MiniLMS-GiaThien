@@ -158,6 +158,30 @@ main{
     opacity: 1;
     text-decoration: underline;
 }
+.item-list {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 10px;
+}
+
+.item-list li {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  background-color: #f9f9f9;
+}
+
+.item-list li a {
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+}
+
+.item-list li a:hover {
+  text-decoration: underline;
+  color: #007BFF;
+}
 
 
 

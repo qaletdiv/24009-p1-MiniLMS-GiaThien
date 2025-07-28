@@ -7,16 +7,29 @@
   <link rel="stylesheet" href="./lesson-detail.css">
 </head>
 <body>
-  <header>
+   <header>
     <div class="header-container">
-      <span class="logo">Project 1</span>
-      <button onclick="history.back()" class="btn btn-logout">Quay lại</button>
+      <a href="/html/index.html" class="logo">
+        <span>Project 1</span>
+      </a>
+      <nav>
+        <ul>
+          <li><a href="/html/index.html">Trang chủ</a></li>
+          <li><a href="#">Giới thiệu</a></li>
+          <li><a href="#">Liên hệ</a></li>
+        </ul>
+      </nav>
+      <div class="auth-buttons">
+        <button onclick="signOut()" class="btn btn-logout">Đăng xuất</button>
+      </div>
     </div>
   </header>
 
   <main>
-    <div class="lesson-container" id="lesson-box">
-      <h2>Đang tải bài giảng...</h2>
+    <div class="lesson-container">
+      <h1 id="lesson-title">Tiêu đề</h1>
+      <p id="lesson-grade"></p>
+      <div id="lesson-content" style="white-space: pre-line;"></div>
     </div>
   </main>
 

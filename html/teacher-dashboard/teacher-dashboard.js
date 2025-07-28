@@ -1,48 +1,47 @@
 
-function signOut() {
-  localStorage.removeItem('currentUser');
-  window.location.href = '../index.html';
-}
-function toCreateExcercise() {
-  window.location.href = '../create-exercise/create-exercise.html'
-}
-
 function toCreateLesson() {
   window.location.href = '../create-lesson/create-lesson.html'
 }
 
-const lessons = JSON.parse(localStorage.getItem('lessons')) || [];
-const container = document.getElementById('lesson-count');
+document.addEventListener("DOMContentLoaded",function(){
+  renderLessons();
+  renderExercise();
+})
 
-if (lessons.length > 0) {
-  const link = document.createElement('a');
-  link.href = "../lessonCreated/lessonCreated.html";
-  link.textContent = `Bài giảng đã tạo: ${lessons.length}`;
-  link.classList.add('lesson-link');
+function renderLessons(){
+  const lessons = JSON.parse(localStorage.getItem("lessons"))||[];
+  const lessonList = document.getElementById("lesson-list");
 
-  container.appendChild(link);
+  if(lessons.length===0){
+    lessonList.innerHTML = "<li>Chưa có bài giảng</li>"
+    return;
+  }
+
+  lessons.forEach((lesson)=>{
+    const li = document.createElement('li');
+    li.classList.add("lesson-item");
+    li.innerHTML=`<a href="/html/teacher-submission/teacher-submission.html?type=lesson&id=${lesson.id}">
+      ${lesson.title}
+    </a>`
+    lessonList.appendChild(li);
+  })
 }
 
-const exercises = JSON.parse(localStorage.getItem('exercises')) || [];
-const exerciseContainer = document.getElementById('exercise-count');
+function renderExercise(){
+  const exercises = JSON.parse(localStorage.getItem("exercises"))||[];
+  const exerciseList = document.getElementById("exercise-list");
 
-if (exercises.length > 0) {
-  const exLink = document.createElement('a');
-  exLink.href = "../exerciseCreated/exerciseCreated.html";
-  exLink.textContent = `Bài tập đã tạo: ${exercises.length}`;
-  exLink.classList.add('exercise-link');
+  if(exercises.length===0){
+    exerciseList.innerHTML = "<li>Chưa có bài tập</li>"
+    return;
+  }
 
-  exerciseContainer.appendChild(exLink);
+  exercises.forEach((exercise)=>{
+    const li = document.createElement('li');
+    li.classList.add("exercise-item");
+    li.innerHTML=`<a href="/html/teacher-submission/teacher-submission.html?type=exercise&id=${exercise.id}">
+      ${exercise.title}
+    </a>`
+    exerciseList.appendChild(li);
+  })
 }
-
-const submissions = JSON.parse(localStorage.getItem('submittedExercises')) || [];
-const exerciseSubmittedContainer = document.getElementById('exercise-submitted')
-if (submissions.length > 0) {
-  const subLink = document.createElement('a');
-  subLink.href = "../teacher-submission/teacher-submission.html";
-  subLink.textContent = `Bài tập đã được nộp: ${submissions.length}`;
-  subLink.classList.add('submission-link');
-
-  exerciseSubmittedContainer.appendChild(subLink);
-}
-

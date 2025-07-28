@@ -1,73 +1,90 @@
 function toTeacherDashboard() {
     window.location.href = "../teacher-dashboard/teacher-dashboard.html";
 }
+function signOut() {
+  localStorage.removeItem("currentUser");
+  window.location.href = "../index.html";
+}
+
 document.addEventListener("DOMContentLoaded", () => {
-    const submissions = JSON.parse(localStorage.getItem("submittedExercises")) || [];
-    const container = document.getElementById("submission-box");
+  const url = new URLSearchParams(window.location.search);
+  const id = parseInt(url.get("id"));
+  const type = url.get("type");
+  const container = document.getElementById("content-container");
 
-    if (submissions.length === 0) {
-        container.innerHTML += "<p>Chưa có bài nào được nộp.</p>";
-        return;
-    }
+  if (type === "lesson") {
+    const lessons = JSON.parse(localStorage.getItem("lessons")) || [];
+    const lesson = lessons.find(l => l.id === id);
+    if (!lesson) return (container.innerHTML = "<p>Bài giảng không tồn tại.</p>");
 
-    submissions.forEach((sub, idx) => {
-        const div = document.createElement("div");
-        div.classList.add("submission");
+    document.getElementById("page-title").textContent = "Chi tiết bài giảng";
+    container.innerHTML = `
+      <h2>${lesson.title}</h2>
+      <p><strong>Khối lớp:</strong> ${lesson.grade}</p>
+      <p><strong>Ngày tạo:</strong> ${new Date(lesson.createdAt).toLocaleString()}</p>
+      <div><strong>Nội dung:</strong></div>
+      <div style="white-space: pre-line; border: 1px solid #ddd; padding: 10px; margin-top: 10px;">
+        ${lesson.content}
+      </div>
+    `;
+  }
 
-        div.innerHTML = `
-      <h3>${idx + 1}. ${sub.exerciseTitle}</h3>
-      <p><strong>Học sinh:</strong> ${sub.student}</p>
-      <p><strong>Ngày nộp:</strong> ${new Date(sub.submittedAt).toLocaleString()}</p>
-      <form id="form-${idx}"></form>
+  if (type === "exercise") {
+    const exercises = JSON.parse(localStorage.getItem("exercises")) || [];
+    const exercise = exercises.find(e => e.id === id);
+    if (!exercise) return (container.innerHTML = "<p>Bài tập không tồn tại.</p>");
+
+    document.getElementById("page-title").textContent = "Chi tiết bài tập";
+    const questionsHtml = exercise.questions.map((q, index) => {
+      return `
+        <div class="question-block">
+          <p><strong>Câu ${index + 1}:</strong> ${q.question}</p>
+          <p><strong>Đáp án đúng:</strong> ${q.answer}</p>
+          <p><strong>Điểm:</strong> ${q.points}</p>
+          <label>Chấm lại điểm:
+            <input type="number" min="0" max="${q.points}" class="regrade" data-q="${index}" />
+          </label>
+        </div>
+        <hr />
+      `;
+    }).join("");
+
+    container.innerHTML = `
+      <h2>${exercise.title}</h2>
+      <p><strong>Khối lớp:</strong> ${exercise.grade}</p>
+      <p><strong>Hạn nộp:</strong> ${exercise.deadline}</p>
+      <div class="questions">
+        ${questionsHtml}
+      </div>
+      <div class="feedback">
+        <label>Nhận xét:</label><br />
+        <textarea id="feedback" rows="4" style="width: 100%;" placeholder="Nhập nhận xét..."></textarea>
+      </div>
+      <button id="save-feedback">Lưu nhận xét & chấm điểm</button>
     `;
 
-        const form = div.querySelector(`#form-${idx}`);
-        sub.answers.forEach((ans, i) => {
-            const item = document.createElement("div");
-            item.innerHTML = `
-        <p><strong>Câu ${i + 1}:</strong> ${ans.question}</p>
-        <p>Học sinh trả lời: ${ans.studentAnswer}</p>
-        <label>Đáp án đúng:</label><br>
-        <textarea name="correct${i}" class="resizable-textarea" rows="2">${ans.correctAnswer}</textarea><br>
-
-        <label>Điểm: <input type="number" min="0" max="${ans.points}" value="${ans.score}" name="score${i}" /></label>
-        <hr>
-      `;
-            form.appendChild(item);
-        });
-
-        const saveBtn = document.createElement("button");
-        saveBtn.textContent = "Lưu chấm điểm";
-        saveBtn.classList.add("btn-save");
-        saveBtn.type = "button";
-
-        saveBtn.onclick = () => {
-            let newTotal = 0;
-
-            sub.answers.forEach((ans, i) => {
-                const correctInput = form.querySelector(`input[name=correct${i}]`);
-                const scoreInput = form.querySelector(`input[name=score${i}]`);
-
-                const newCorrect = correctInput.value.trim();
-                const newScore = parseFloat(scoreInput.value) || 0;
-
-                ans.correctAnswer = newCorrect;
-                ans.score = newScore;
-                ans.isCorrect = ans.studentAnswer.trim().toLowerCase() === newCorrect.toLowerCase();
-
-                newTotal += newScore;
-            });
-
-            sub.totalScore = newTotal;
-
-            const allSubs = JSON.parse(localStorage.getItem("submittedExercises")) || [];
-            allSubs[idx] = sub;
-            localStorage.setItem("submittedExercises", JSON.stringify(allSubs));
-
-            alert("✅ Đã lưu chấm điểm và cập nhật đáp án đúng!");
+    document.getElementById("save-feedback").addEventListener("click", () => {
+      const feedback = document.getElementById("feedback").value.trim();
+      const regrades = Array.from(document.querySelectorAll(".regrade")).map(input => {
+        return {
+          questionIndex: parseInt(input.dataset.q),
+          newPoints: parseFloat(input.value || 0)
         };
+      });
 
-        form.appendChild(saveBtn);
-        container.appendChild(div);
+      const submission = {
+        exerciseId: exercise.id,
+        feedback,
+        regrades,
+        updatedAt: new Date().toISOString()
+      };
+
+      const submissions = JSON.parse(localStorage.getItem("submissions")) || [];
+      submissions.push(submission);
+      localStorage.setItem("submissions", JSON.stringify(submissions));
+
+      alert("Lưu nhận xét và điểm thành công!");
     });
+  }
 });
+

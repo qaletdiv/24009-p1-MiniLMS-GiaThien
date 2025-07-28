@@ -115,6 +115,7 @@ main{
     border-radius: 5px;
     font-size: 1rem;
     transition: border-color 0.3s, box-shadow 0.3s;
+    margin: 0.8rem 0;
 }
 
 .form-control:focus {
@@ -138,7 +139,11 @@ main{
     opacity: 1;
 }
 
-
+#add-exercise{
+    margin-bottom: 1.5rem;
+    background-color: orangered;
+    color: white;
+}
 
 
 

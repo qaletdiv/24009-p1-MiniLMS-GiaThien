@@ -8,31 +8,37 @@
 <body>
   <header>
     <div class="header-container">
-      <a href="#" class="logo">
+      <a href="/html/index.html" class="logo">
         <span>Project 1</span>
       </a>
       <nav>
         <ul>
-          <li><a href="#">Trang chủ</a></li>
+          <li><a href="/html/index.html">Trang chủ</a></li>
           <li><a href="#">Giới thiệu</a></li>
           <li><a href="#">Liên hệ</a></li>
         </ul>
       </nav>
       <div class="auth-buttons">
-        <button onclick="signOut()" class="btn btn-logout">Đăng xuất</button>
+        <button class="btn btn-logout">Đăng xuất</button>
       </div>
     </div>
   </header>
 
   <main>
     <div class="teacher-container">
-      <h1 class="teacher-title">Bạn muốn tạo?</h1>
-      <button onclick="toCreateExcercise()" class="excercise">Bài tập</button>
-      <button onclick="toCreateLesson()" class="lesson">Bài giảng</button>
+      <h1 class="teacher-title">Dashboard giáo viên</h1>
+      <button onclick="toCreateLesson()" class="lesson">Tạo bài mới</button>
 
-      <div id="lesson-count" class="lesson-count"></div>
-      <div id="exercise-count" class="exercise-count"></div>
-      <div id="exercise-submitted" class="exercise-submitted"></div>
+      <section id="lesson-list-section">
+        <h2>Bài giảng đã tạo</h2>
+        <ul id="lesson-list" class="item-list"></ul>
+      </section>
+
+      <section id="exercise-list-section">
+        <h2>Bài tập đã tạo</h2>
+        <ul id="exercise-list" class="item-list"></ul>
+      </section>
+      
     </div>
   </main>
 

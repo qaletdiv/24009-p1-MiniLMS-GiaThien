@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <title>Project 1</title>
+    <link rel="stylesheet" href="select-grade.css">
+    <title>Chọn lớp</title>
 </head>
+
 <body>
     <header>
         <div class="header-container">
@@ -22,27 +21,28 @@
                     <li><a href="#">Liên hệ</a></li>
                 </ul>
             </nav>
-            
         </div>
     </header>
     <main>
-        <section class="hero">
-            <h1>Chào mừng đến với mini LMS</h1>
-            <p>Hệ thống được tạo ra với mục đích hỗ trợ giáo viên và học sinh trong việc đăng bài và làm bài tập</p>
-            <button class="btn btn-register">Khám phá ngay</button>
-        </section>
-        
-        <section class="features">
-            <article class="feature-card">
-                <h3>Bạn là giáo viên</h3>
-                <button class="btn" onclick="toTeacherDashBoard()">Tiếp theo</button>
-            </article>
-            <article class="feature-card">
-                <h3>Bạn là học sinh</h3>
-                <button class="btn" onclick="handleStudentButton()">Tiếp theo</button>
-            </article>
-        </section>
-        <
+        <div class="select-grade-container">
+            <h1>Chọn lớp</h1>
+            <form class="modal-grade" id="select-grade-form">
+                <select class="modal-grade-select" id="modal-grade-select">
+                    <option value="" disabled selected>Chọn lớp</option>
+                    <option value="3">Lớp 3</option>
+                    <option value="4">Lớp 4</option>
+                    <option value="5">Lớp 5</option>
+                    <option value="6">Lớp 6</option>
+                    <option value="7">Lớp 7</option>
+                    <option value="8">Lớp 8</option>
+                    <option value="9">Lớp 9</option>
+                    <option value="10">Lớp 10</option>
+                    <option value="11">Lớp 11</option>
+                    <option value="12">Lớp 12</option>
+                </select>
+                <button class="btn btn-submit" type="submit">Xác nhận</button>
+            </form>
+        </div>
     </main>
     <footer>
         <div class="footer-container">
@@ -71,10 +71,10 @@
             </div>
         </div>
         <div class="copyright">
-                © 2025 Project 1. All rights reserved.
+            © 2025 Project 1. All rights reserved.
         </div>
-        
     </footer>
-    <script src="./index.js"></script>
+    <script src="select-grade.js"></script>
 </body>
+
 </html>
