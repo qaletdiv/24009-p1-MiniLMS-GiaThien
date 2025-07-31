@@ -6,5 +6,5 @@ selectGradeForm.addEventListener('submit',function(e){
     const grade = gradeSelected.value;
     // console.log(grade);
     localStorage.setItem('grade',grade);
-    window.location.href='./student-dashboard/student-dasboard.html'
+    window.location.href='/html/student-dashboard/student-dashboard.html'
 })
