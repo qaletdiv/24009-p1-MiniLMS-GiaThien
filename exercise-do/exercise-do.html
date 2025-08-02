@@ -1,38 +1,30 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
-  <meta charset="UTF-8">
-  <title>Chi tiết bài giảng</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./lesson-detail.css">
+  <meta charset="UTF-8" />
+  <title>Làm bài tập</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="./exercise-do.css" />
 </head>
+
 <body>
-   <header>
+  <header>
     <div class="header-container">
-      <a href="/html/index.html" class="logo">
-        <span>Mini LMS</span>
-      </a>
-      <nav>
-        <ul>
-          <li><a href="/html/index.html">Trang chủ</a></li>
-          <li><a href="#">Giới thiệu</a></li>
-          <li><a href="#">Liên hệ</a></li>
-        </ul>
-      </nav>
-      <div class="auth-buttons">
-        <button onclick="history.back()" class="btn btn-logout">Quay lại</button>
+      <div class="header-container">
+        <a href="/index.html" class="logo">
+          <span>Mini LMS</span>
+        </a>
+        <button onclick="toStudentDashboard()" class="btn"> Quay lại</button>
       </div>
-    </div>
   </header>
 
   <main>
-    <div class="lesson-container">
-      <h1 id="lesson-title">Tiêu đề</h1>
-      <p id="lesson-grade"></p>
-      <div id="lesson-content" style="white-space: pre-line;"></div>
+    <div class="exercise-container">
+      <h1 id="exercise-title">Bài tập</h1>
+      <form id="exercise-form"></form>
     </div>
   </main>
-
   <footer>
     <div class="footer-container">
       <div class="footer-about">
@@ -63,6 +55,9 @@
       © 2025 Mini LMS. All rights reserved.
     </div>
   </footer>
-  <script src="./lesson-detail.js"></script>
+
+
+  <script src="./exercise-do.js"></script>
 </body>
+
 </html>

@@ -17,5 +17,5 @@ selectGradeForm.addEventListener('submit',function(e){
         return;
     }
     localStorage.setItem('grade', selectedGrade);
-    window.location.href = '/html/student-dashboard/student-dashboard.html';
+    window.location.href = '/student-dashboard/student-dashboard.html';
 })

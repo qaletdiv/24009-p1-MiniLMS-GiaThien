@@ -2,29 +2,29 @@
 <html lang="vi">
 
 <head>
-  <meta charset="UTF-8" />
-  <title>Làm bài tập</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="./exercise-do.css" />
+  <meta charset="UTF-8">
+  <title>Kết quả bài làm</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./exercise-result.css">
 </head>
 
 <body>
   <header>
     <div class="header-container">
-      <div class="header-container">
-        <a href="/html/index.html" class="logo">
+        <a href="/index.html" class="logo">
           <span>Mini LMS</span>
         </a>
-        <button onclick="toStudentDashboard()" class="btn"> Quay lại</button>
+        <button onclick="toStudentDashboard()" class="btn btn-logout">Quay lại</button>
       </div>
   </header>
 
   <main>
-    <div class="exercise-container">
-      <h1 id="exercise-title">Bài tập</h1>
-      <form id="exercise-form"></form>
+    <div class="result-container" id="result-box">
+      <h2 id="result-title">Kết quả bài làm</h2>
+      <div id="result-detail"></div>
     </div>
   </main>
+
   <footer>
     <div class="footer-container">
       <div class="footer-about">
@@ -53,11 +53,12 @@
     </div>
     <div class="copyright">
       © 2025 Mini LMS. All rights reserved.
+
     </div>
+    <a href="../create-exercise/create-exercise.html"></a>
   </footer>
 
-
-  <script src="./exercise-do.js"></script>
+  <script src="./exercise-result.js"></script>
 </body>
 
 </html>

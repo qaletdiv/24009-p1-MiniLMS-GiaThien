@@ -20,7 +20,7 @@ function renderLessons(){
   lessons.forEach((lesson)=>{
     const li = document.createElement('li');
     li.classList.add("lesson-item");
-    li.innerHTML=`<a href="/html/teacher-submission/teacher-submission.html?type=lesson&id=${lesson.id}">
+    li.innerHTML=`<a href="/teacher-submission/teacher-submission.html?type=lesson&id=${lesson.id}">
       ${lesson.title}
     </a>`
     lessonList.appendChild(li);
@@ -39,7 +39,7 @@ function renderExercise(){
   exercises.forEach((exercise)=>{
     const li = document.createElement('li');
     li.classList.add("exercise-item");
-    li.innerHTML=`<a href="/html/teacher-submission/teacher-submission.html?type=exercise&id=${exercise.id}">
+    li.innerHTML=`<a href="/teacher-submission/teacher-submission.html?type=exercise&id=${exercise.id}">
       ${exercise.title}
     </a>`
     exerciseList.appendChild(li);

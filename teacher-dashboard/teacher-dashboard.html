@@ -1,49 +1,47 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Học sinh</title>
-  <link rel="stylesheet" href="./student-dashboard.css">
+  <title>Dashboard Giáo viên</title>
+  <link rel="stylesheet" href="./teacher-dashboard.css">
 </head>
-
 <body>
   <header>
     <div class="header-container">
-      <a href="/html/index.html" class="logo">
+      <a href="/index.html" class="logo">
         <span>Mini LMS</span>
       </a>
       <nav>
         <ul>
-          <li><a href="/html/index.html">Trang chủ</a></li>
+          <li><a href="/index.html">Trang chủ</a></li>
           <li><a href="#">Giới thiệu</a></li>
           <li><a href="#">Liên hệ</a></li>
         </ul>
       </nav>
       <div class="auth-buttons">
-        <button onclick="history.back()" class="btn btn-logout">Quay lại</button>
+        <button class="btn btn-logout">Đăng xuất</button>
       </div>
     </div>
   </header>
-  <main>
-    <div class="dashboard-container">
-      <h1>Xin chào, học sinh!</h1>
 
-      <section class="lesson">
-        <h2>Bài giảng dành cho bạn</h2>
+  <main>
+    <div class="teacher-container">
+      <h1 class="teacher-title">Dashboard giáo viên</h1>
+      <button onclick="toCreateLesson()" class="lesson">Tạo bài mới</button>
+
+      <section id="lesson-list-section">
+        <h2>Bài giảng đã tạo</h2>
         <ul id="lesson-list" class="item-list"></ul>
       </section>
 
-      <section class="excercise">
-        <h2>Bài tập chưa nộp</h2>
-        <ul id="exercise-not-submitted"></ul>
-
-        <h2>Bài tập đã nộp</h2>
-        <ul id="exercise-submitted"></ul>
+      <section id="exercise-list-section">
+        <h2>Bài tập đã tạo</h2>
+        <ul id="exercise-list" class="item-list"></ul>
       </section>
+      
     </div>
   </main>
+
   <footer>
     <div class="footer-container">
       <div class="footer-about">
@@ -73,9 +71,8 @@
     <div class="copyright">
       © 2025 Mini LMS. All rights reserved.
     </div>
+    <a href="../create-exercise/create-exercise.html"></a>
   </footer>
-  
-  <script src="./student-dashboard.js"></script>
+  <script src="./teacher-dashboard.js"></script>
 </body>
-
 </html>
