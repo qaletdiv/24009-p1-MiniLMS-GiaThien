@@ -2,8 +2,6 @@
 function toStudentDashboard(){
     window.location.href="../student-dashboard/student-dashboard.html"
 }
-
- 
     const params = new URLSearchParams(location.search);
     const id = parseInt(params.get("id"));
 

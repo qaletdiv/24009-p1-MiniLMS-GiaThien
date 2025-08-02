@@ -1,19 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" referrerpolicy="no-referrer" />
+
     <link rel="stylesheet" href="style.css">
-    <title>Project 1</title>
+    <title>Mini LMS</title>
 </head>
+
 <body>
     <header>
         <div class="header-container">
             <a href="/html/index.html" class="logo">
-                <span>Project 1</span>
+                <span>Mini LMS</span>
             </a>
             <nav>
                 <ul>
@@ -22,16 +25,28 @@
                     <li><a href="#">Liên hệ</a></li>
                 </ul>
             </nav>
-            
+
         </div>
     </header>
     <main>
         <section class="hero">
             <h1>Chào mừng đến với mini LMS</h1>
             <p>Hệ thống được tạo ra với mục đích hỗ trợ giáo viên và học sinh trong việc đăng bài và làm bài tập</p>
+            <section class="icon">
+                <div class="card">
+                    <i class="fas fa-chalkboard-teacher"></i> 
+                    <p>500+ Giáo Viên</p>
+                </div>
+
+                <div class="card">
+                    <i class="fas fa-user-graduate"></i> 
+                    <p>15000+ Học sinh</p>
+                </div>
+            
+            </section>
             <button class="btn btn-register">Khám phá ngay</button>
         </section>
-        
+
         <section class="features">
             <article class="feature-card">
                 <h3>Bạn là giáo viên</h3>
@@ -42,13 +57,13 @@
                 <button class="btn" onclick="handleStudentButton()">Tiếp theo</button>
             </article>
         </section>
-        <
+
     </main>
     <footer>
         <div class="footer-container">
             <div class="footer-about">
-                <span class="footer-logo">Project 1</span>
-                <p>Đây là trang web làm ra với mục đích giáo dục</p>
+                <span class="footer-logo">Mini LMS</span>
+                <p>Đây là trang web làm ra với mục đích giáo dục. Nơi giáo viên và học sinh có thể giao tiếp và làm bài tập</p>
             </div>
             <div class="footer-links">
                 <ul>
@@ -71,10 +86,11 @@
             </div>
         </div>
         <div class="copyright">
-                © 2025 Project 1. All rights reserved.
+            © 2025 Mini LMS. All rights reserved.
         </div>
-        
+
     </footer>
     <script src="./index.js"></script>
 </body>
+
 </html>

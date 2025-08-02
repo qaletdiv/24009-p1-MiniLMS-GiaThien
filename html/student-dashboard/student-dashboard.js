@@ -56,7 +56,7 @@ window.addEventListener("DOMContentLoaded", () => {
     button.classList.add("btn-show");
 
     if (submission) {
-      button.textContent = `Xem kết quả (${submission.totalScore}/${submission.maxScore})`;
+      button.textContent = `Xem kết quả`;
       button.onclick = function () {
         window.location.href = `../exercise-result/exercise-result.html?id=${exercise.id}`;
       };

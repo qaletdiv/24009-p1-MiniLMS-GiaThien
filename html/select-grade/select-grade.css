@@ -110,21 +110,35 @@ main {
     margin: 2rem 0;
     text-align: center;
 }
-.modal-grade{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+.grade-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin: 2rem 0;
 }
-.modal-grade-select{
-    width: 70%;
-    margin: 20px;
-    padding: 0.5rem;
+
+.grade-btn {
+    padding: 1rem;
+    font-size: 1.1rem;
+    background-color: #f1f3f5;
+    border: 2px solid transparent;
     border-radius: 8px;
-    border: 1px solid #dee2e6;
-    font-size: 1rem;
     cursor: pointer;
+    transition: all 0.3s ease;
 }
+
+.grade-btn:hover {
+    background-color: #e7f5ff;
+    border-color: #339af0;
+    color: #1864ab;
+}
+
+.grade-btn.selected {
+    background-color: #339af0;
+    color: white;
+    border-color: #1864ab;
+}
+
 .btn-submit {
   width: 70%;
   padding: 0.5rem;

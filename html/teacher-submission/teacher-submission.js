@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const exercise = exercises.find(e => e.id === id);
     if (!exercise) return (container.innerHTML = "<p>Bài tập không tồn tại.</p>");
 
-    document.getElementById("page-title").textContent = "Chi tiết bài tập";
+    
     const questionsHtml = exercise.questions.map((q, index) => {
       return `
         <div class="question-block">

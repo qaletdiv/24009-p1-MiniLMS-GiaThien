@@ -99,12 +99,11 @@ nav ul li a:hover {
   padding-bottom: 10px;
 }
 
-.correct {
-  color: green;
-}
-
-.incorrect {
-  color: red;
+#page-title {
+  color: #1864ab;
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 1.8rem;
 }
 
 input[type="number"] {
@@ -143,6 +142,72 @@ input[type="number"]:focus {
   border: none;
   border-radius: 4px;
   cursor: pointer;
+}
+
+#content-container {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 10px;
+  max-width: 900px;
+  margin: 2rem auto;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+}
+
+#content-container h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  color: #1864ab;
+}
+
+.question-block {
+  background-color: #f8f9fa;
+  padding: 1rem;
+  border-left: 3px solid #228be6;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+}
+
+.question-block p {
+  margin: 0.5rem 0;
+  font-size: 1rem;
+}
+
+.regrade {
+  margin-top: 0.5rem;
+  padding: 0.4rem;
+  width: 100px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.feedback {
+  margin-top: 2rem;
+}
+
+#feedback {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1rem;
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  resize: vertical;
+  margin-top: 0.5rem;
+}
+
+#save-feedback {
+  margin-top: 1rem;
+  background-color: #228be6;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#save-feedback:hover {
+  background-color: #1c7ed6;
 }
 
 
