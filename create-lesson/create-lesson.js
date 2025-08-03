@@ -57,6 +57,7 @@ lectureForm.addEventListener("submit", function (e) {
   lectureForm.reset();
   lectureSection.style.display = "none";
   typeSelect.value = "";
+  window.location.href="../teacher-dashboard/teacher-dashboard.html"
 });
 
 
@@ -110,6 +111,7 @@ exerciseForm.addEventListener("submit", function (e) {
   addButton.click(); 
   exerciseSection.style.display = "none";
   typeSelect.value = "";
+  window.location.href="../teacher-dashboard/teacher-dashboard.html"
 });
 
 

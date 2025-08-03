@@ -88,101 +88,234 @@ nav ul li a:hover {
 main{
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
+    padding: 2rem;
+    min-height: calc(100vh - 200px);
 }
+
 .teacher-container{
     background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     width: 100%;
-    max-width: 500px;
-    padding: 2.5rem;
-    margin: 2rem 0;
+    max-width: 1200px;
+    padding: 2rem;
+    margin: 0;
 }
+
+
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 2px solid #f1f3f4;
+}
+
 .teacher-title{
     color: #1864ab;
-    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.header-actions {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+
+.btn-create {
+    background:  #228be6;
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(34, 139, 230, 0.3);
+}
+
+.btn-create:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(34, 139, 230, 0.4);
+}
+
+/* Stats Grid */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
     margin-bottom: 2rem;
-    font-size: 1.8rem;
 }
-.excercise{
-    display: block;
-    width: 100%;
-    padding: 0.9rem;
-    background-color: #228be6;
-    border: none;
-    border-radius: 8px;
-    color: white;
-    font-size: 1rem;
+
+.stat-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: all 0.3s ease;
+    border: 1px solid #e9ecef;
+}
+
+
+
+.stat-content h3 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1864ab;
+    margin: 0;
+}
+
+.stat-content p {
+    color: #6c757d;
     font-weight: 500;
-    margin-bottom: 1.5rem;
-    cursor: pointer;
-    opacity: 1;
+    margin: 0;
 }
-.excercise:hover{
-    opacity: 0.8;
+
+.content-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 2rem;
 }
-.lesson{
-    display: block;
-    width: 100%;
-    padding: 0.9rem;
-    background-color: #228be6;
-    border: none;
-    border-radius: 8px;
+
+.content-card {
+    background: #ffffff;
+    border-radius: 12px;
+    border: 1px solid #e9ecef;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+
+
+.section-header {
+    background: #ffffff;
+    padding: 1.5rem;
+    border-bottom: 1px solid #e9ecef;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.section-header h2 {
+    color: #1864ab;
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.section-count {
+    background: #228be6;
     color: white;
-    font-weight: 500;
-    font-size: 1rem;
-    cursor: pointer;
-    opacity: 1;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
 }
-.lesson:hover{
-    opacity: 0.8;
+
+.content-body {
+    padding: 1.5rem;
 }
-#exercise-submitted,
-#exercise-count,
-#lesson-count{
-    text-align: center;
-    margin: 1rem 0;
-}
-#exercise-submitted a,
-#exercise-count a,
-#lesson-count a{
-   color: #495057;
-   text-decoration: none;
-   font-size: 1.2rem;
-   opacity: 0.8;
-}
-#exercise-submitted a:hover,
-#exercise-count a:hover,
-#lesson-count a:hover{
-    opacity: 1;
-    text-decoration: underline;
-}
+
+
 .item-list {
-  list-style: none;
-  padding-left: 0;
-  margin-top: 10px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
 .item-list li {
-  padding: 8px 12px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  margin-bottom: 8px;
-  background-color: #f9f9f9;
+    padding: 1rem;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    margin-bottom: 0.8rem;
+    background: #f8f9fa;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
+
+
 
 .item-list li a {
-  text-decoration: none;
-  color: #333;
-  font-weight: bold;
+    text-decoration: none;
+    color: #495057;
+    font-weight: 500;
+    flex: 1;
 }
-
+.item-list li:hover{
+  border: 1px solid #228be6;
+}
 .item-list li a:hover {
-  text-decoration: underline;
-  color: #007BFF;
+    color: #228be6;
+    text-decoration: none;
 }
 
+
+
+
+@media (max-width: 768px) {
+    .teacher-container {
+        padding: 1rem;
+        margin: 1rem;
+    }
+    
+    .dashboard-header {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+    }
+    
+    .header-actions {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .btn-create {
+        width: 100%;
+    }
+    
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+    
+    .content-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .stat-card {
+        padding: 1rem;
+    }
+    
+    .stat-content h3 {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .teacher-title {
+        font-size: 1.5rem;
+    }
+    
+    .header-actions {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+}
 
 
 /* main */

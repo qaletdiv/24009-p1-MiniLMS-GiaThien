@@ -28,20 +28,67 @@
   </header>
   <main>
     <div class="dashboard-container">
-      <h1>Xin chào, học sinh!</h1>
+      <div class="dashboard-header">
+        <h1>Xin chào, học sinh!</h1>
+        <div class="header-actions">
+          
+         
+        </div>
+      </div>
 
-      <section class="lesson">
-        <h2>Bài giảng dành cho bạn</h2>
-        <ul id="lesson-list" class="item-list"></ul>
-      </section>
+      <div class="stats-grid">
+        <div class="stat-card">
+          
+          <div class="stat-content">
+            <h3 id="lesson-count">0</h3>
+            <p>Bài giảng</p>
+          </div>
+        </div>
+        <div class="stat-card">
+          
+          <div class="stat-content">
+            <h3 id="exercise-pending">0</h3>
+            <p>Bài tập chưa làm</p>
+          </div>
+        </div>
+        <div class="stat-card">
+          
+          <div class="stat-content">
+            <h3 id="exercise-completed">0</h3>
+            <p>Bài tập đã nộp</p>
+          </div>
+        </div>
+        
+      </div>
 
-      <section class="excercise">
-        <h2>Bài tập chưa nộp</h2>
-        <ul id="exercise-not-submitted"></ul>
+   
+      <div class="content-grid">
+        <section class="lesson content-card">
+          <div class="section-header">
+            <h2>Bài giảng dành cho bạn</h2>
+          </div>
+          <div class="content-body">
+            <ul id="lesson-list" class="item-list"></ul>
+          </div>
+        </section>
 
-        <h2>Bài tập đã nộp</h2>
-        <ul id="exercise-submitted"></ul>
-      </section>
+        <section class="exercise content-card">
+          <div class="section-header">
+            <h2>Bài tập của bạn</h2>
+            
+          </div>
+          <div class="content-body">
+            <div class="exercise-section">
+              <h3>Bài tập chưa nộp</h3>
+              <ul id="exercise-not-submitted" class="item-list"></ul>
+            </div>
+            <div class="exercise-section">
+              <h3>Bài tập đã nộp</h3>
+              <ul id="exercise-submitted" class="item-list"></ul>
+            </div>
+          </div>
+        </section>
+      </div>
     </div>
   </main>
   <footer>

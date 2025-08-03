@@ -11,7 +11,6 @@
 <body>
   <header>
     <div class="header-container">
-      <div class="header-container">
         <a href="/index.html" class="logo">
           <span>Mini LMS</span>
         </a>
@@ -21,8 +20,30 @@
 
   <main>
     <div class="exercise-container">
-      <h1 id="exercise-title">Bài tập</h1>
-      <form id="exercise-form"></form>
+      <div class="exercise-header">
+        <h1 id="exercise-title">Bài tập</h1>
+        <div class="exercise-info">
+          <span class="info-item" id="exercise-grade"></span>
+          <span class="info-item" id="exercise-deadline"></span>
+        </div>
+      </div>
+      
+      <div class="exercise-content">
+        <div class="progress-bar">
+          <div class="progress-fill" id="progress-fill"></div>
+          <span class="progress-text" id="progress-text">0/0</span>
+        </div>
+        
+        <form id="exercise-form" class="exercise-form">
+          
+        </form>
+        
+        <div class="exercise-actions">
+          <button type="button" id="prev-btn" class="btn btn-secondary">Câu trước</button>
+          <button type="button" id="next-btn" class="btn btn-primary">Câu tiếp</button>
+          <button type="submit" id="submit-btn" class="btn btn-success" style="display: none;">Nộp bài</button>
+        </div>
+      </div>
     </div>
   </main>
   <footer>

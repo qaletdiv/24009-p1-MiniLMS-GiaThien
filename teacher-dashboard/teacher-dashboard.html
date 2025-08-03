@@ -19,25 +19,60 @@
         </ul>
       </nav>
       <div class="auth-buttons">
-        <button class="btn btn-logout">Đăng xuất</button>
+        <button class="btn btn-logout" onclick="toIndex()">Quay lại</button>
       </div>
     </div>
   </header>
 
   <main>
     <div class="teacher-container">
-      <h1 class="teacher-title">Dashboard giáo viên</h1>
-      <button onclick="toCreateLesson()" class="lesson">Tạo bài mới</button>
+      <div class="dashboard-header">
+        <h1 class="teacher-title">Dashboard giáo viên</h1>
+        <div class="header-actions">
+          
+          <button onclick="toCreateLesson()" class="btn-create">Tạo bài mới</button>
+        </div>
+      </div>
 
-      <section id="lesson-list-section">
-        <h2>Bài giảng đã tạo</h2>
-        <ul id="lesson-list" class="item-list"></ul>
-      </section>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-content">
+            <h3 id="lesson-count">0</h3>
+            <p>Bài giảng</p>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-content">
+            <h3 id="exercise-count">0</h3>
+            <p>Bài tập</p>
+          </div>
+        </div>
+        
+       
+      </div>
 
-      <section id="exercise-list-section">
-        <h2>Bài tập đã tạo</h2>
-        <ul id="exercise-list" class="item-list"></ul>
-      </section>
+     
+      <div class="content-grid">
+        <section id="lesson-list-section" class="content-card">
+          <div class="section-header">
+            <h2>Bài giảng đã tạo</h2>
+            
+          </div>
+          <div class="content-body">
+            <ul id="lesson-list" class="item-list"></ul>
+          </div>
+        </section>
+
+        <section id="exercise-list-section" class="content-card">
+          <div class="section-header">
+            <h2>Bài tập đã tạo</h2>
+            
+          </div>
+          <div class="content-body">
+            <ul id="exercise-list" class="item-list"></ul>
+          </div>
+        </section>
+      </div>
       
     </div>
   </main>

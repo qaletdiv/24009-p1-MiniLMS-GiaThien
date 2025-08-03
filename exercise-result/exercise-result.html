@@ -14,14 +14,49 @@
         <a href="/index.html" class="logo">
           <span>Mini LMS</span>
         </a>
-        <button onclick="toStudentDashboard()" class="btn btn-logout">Quay lại</button>
       </div>
   </header>
 
   <main>
     <div class="result-container" id="result-box">
-      <h2 id="result-title">Kết quả bài làm</h2>
-      <div id="result-detail"></div>
+      <div class="result-header">
+        <h2 id="result-title">Kết quả bài làm</h2>
+        
+      </div>
+      
+      <div class="result-content">
+        <div class="score-summary">
+          <div class="score-card">
+            <h3>Điểm số</h3>
+            <div class="score-display" id="score-display">0/0</div>
+            <div class="score-percentage" id="score-percentage">0%</div>
+          </div>
+          
+          <div class="stats-grid">
+            <div class="stat-item">
+              <span class="stat-label">Tổng câu hỏi</span>
+              <span class="stat-value" id="total-questions">0</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Đúng</span>
+              <span class="stat-value correct" id="correct-answers">0</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Sai</span>
+              <span class="stat-value incorrect" id="wrong-answers">0</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="result-detail" id="result-detail">
+          
+        </div>
+        
+        <div class="result-actions">
+          <button onclick="toStudentDashboard()" class="btn btn-logout">Quay lại</button>
+          <button onclick="window.print()" class="btn btn-primary">In kết quả</button>
+        </div>
+      </div>
     </div>
   </main>
 

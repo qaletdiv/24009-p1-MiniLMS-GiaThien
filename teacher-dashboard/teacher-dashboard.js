@@ -1,12 +1,64 @@
+function toIndex(){
+  window.location.href = '../index.html'
+}
+
 
 function toCreateLesson() {
   window.location.href = '../create-lesson/create-lesson.html'
 }
 
+
+
 document.addEventListener("DOMContentLoaded",function(){
   renderLessons();
   renderExercise();
+  updateStats();
+  
+ 
+  window.addEventListener('storage', function(e) {
+    if (e.key === 'lessons' || e.key === 'exercises') {
+      updateStats();
+      renderLessons();
+      renderExercise();
+    }
+  });
+  
+  
+  window.addEventListener('focus', refreshDashboard);
 })
+
+function updateStats() {
+  
+  const lessons = JSON.parse(localStorage.getItem("lessons")) || [];
+  const exercises = JSON.parse(localStorage.getItem("exercises")) || [];
+  
+  
+  const lessonCountElement = document.getElementById("lesson-count");
+  const exerciseCountElement = document.getElementById("exercise-count");
+  
+  if (lessonCountElement) {
+    lessonCountElement.textContent = lessons.length;
+  }
+  
+  if (exerciseCountElement) {
+    exerciseCountElement.textContent = exercises.length;
+  }
+  
+  
+  const lessonCountBadge = document.getElementById("lesson-count-badge");
+  const exerciseCountBadge = document.getElementById("exercise-count-badge");
+  
+  if (lessonCountBadge) {
+    lessonCountBadge.textContent = lessons.length;
+  }
+  
+  if (exerciseCountBadge) {
+    exerciseCountBadge.textContent = exercises.length;
+  }
+  
+ 
+ 
+}
 
 function renderLessons(){
   const lessons = JSON.parse(localStorage.getItem("lessons"))||[];

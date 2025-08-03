@@ -85,25 +85,231 @@ nav ul li a:hover {
 
 
 /* header */
+main {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 2rem;
+  min-height: calc(100vh - 200px);
+}
 
 .exercise-container {
-  max-width: 800px;
-  margin: 30px auto;
-  padding: 20px;
-  background: white;
-  border-radius: 8px;
-}
-.question-block {
-  margin-bottom: 20px;
-}
-input[type="text"] {
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   width: 100%;
-  padding: 8px;
-  border-radius: 4px;
-  border: 1px solid #ccc;
+  max-width: 800px;
+  padding: 2rem;
+  margin: 0;
 }
 
+.exercise-header {
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 2px solid #f1f3f4;
+}
 
+.exercise-header h1 {
+  color: #1864ab;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.exercise-info {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.info-item {
+  background: #f8f9fa;
+  color: #495057;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border: 1px solid #e9ecef;
+}
+
+.exercise-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.progress-bar {
+  background: #f8f9fa;
+  border-radius: 10px;
+  height: 8px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid #e9ecef;
+}
+
+.progress-fill {
+  background: linear-gradient(90deg, #228be6, #1864ab);
+  height: 100%;
+  border-radius: 10px;
+  transition: width 0.3s ease;
+  width: 0%;
+}
+
+.progress-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #228be6;
+  color: white;
+  padding: 0.2rem 0.6rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  box-shadow: 0 2px 4px rgba(34, 139, 230, 0.3);
+}
+
+.exercise-form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.question-block {
+  background: #ffffff;
+  border: 1px solid #e9ecef;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.question-block:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.question-block h3 {
+  color: #1864ab;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.question-block input[type="text"] {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background: #f8f9fa;
+}
+
+.question-block input[type="text"]:focus {
+  outline: none;
+  border-color: #228be6;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(34, 139, 230, 0.1);
+}
+
+.exercise-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e9ecef;
+}
+
+.btn {
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+  min-width: 120px;
+}
+
+.btn-primary {
+  background: #228be6;
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #1864ab;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(34, 139, 230, 0.3);
+}
+
+.btn-secondary {
+  background: #f8f9fa;
+  color: #495057;
+  border: 1px solid #e9ecef;
+}
+
+.btn-secondary:hover {
+  background: #e9ecef;
+  transform: translateY(-2px);
+}
+
+.btn-success {
+  background: #40c057;
+  color: white;
+}
+
+.btn-success:hover {
+  background: #37b24d;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(64, 192, 87, 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  main {
+    padding: 1rem;
+  }
+  
+  .exercise-container {
+    padding: 1.5rem;
+    margin: 1rem;
+  }
+  
+  .exercise-header h1 {
+    font-size: 1.5rem;
+  }
+  
+  .exercise-actions {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+  
+  .btn {
+    width: 100%;
+  }
+  
+  .question-block {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .exercise-container {
+    padding: 1rem;
+  }
+  
+  .exercise-info {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .info-item {
+    text-align: center;
+  }
+}
 
 
 /* main */

@@ -19,17 +19,30 @@
           <li><a href="#">Liên hệ</a></li>
         </ul>
       </nav>
-      <div class="auth-buttons">
-        <button onclick="history.back()" class="btn btn-logout">Quay lại</button>
-      </div>
+      
     </div>
   </header>
 
   <main>
     <div class="lesson-container">
-      <h1 id="lesson-title">Tiêu đề</h1>
-      <p id="lesson-grade"></p>
-      <div id="lesson-content" style="white-space: pre-line;"></div>
+      <div class="lesson-header">
+        <h1 id="lesson-title">Tiêu đề</h1>
+        <div class="lesson-meta">
+          <span class="meta-item" id="lesson-grade"></span>
+
+        </div>
+      </div>
+      
+      <div class="lesson-content-wrapper">
+        <div class="lesson-content" id="lesson-content">
+          
+        </div>
+        
+        <div class="lesson-actions">
+          <button onclick="history.back()" class="btn btn-secondary">Quay lại</button>
+          <button onclick="window.print()" class="btn btn-primary">In bài giảng</button>
+        </div>
+      </div>
     </div>
   </main>
 

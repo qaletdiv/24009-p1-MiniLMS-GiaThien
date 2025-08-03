@@ -207,10 +207,129 @@ input[type="number"]:focus {
 }
 
 #save-feedback:hover {
-  background-color: #1c7ed6;
+  background-color: #40c057;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(64, 192, 87, 0.3);
+}
+
+#save-feedback:disabled {
+  background-color: #adb5bd;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
 }
 
 
+.submissions-section {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #dee2e6;
+}
+
+.submissions-section h3 {
+  color: #495057;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  border-bottom: 2px solid #228be6;
+  padding-bottom: 0.5rem;
+}
+
+.submission-item {
+  background: white;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 6px;
+  border: 1px solid #e9ecef;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.submission-item p {
+  margin-bottom: 0.5rem;
+  color: #495057;
+}
+
+.submission-item strong {
+  color: #228be6;
+}
+
+.submission-details {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 4px;
+  border-left: 4px solid #228be6;
+}
+
+.answer-item {
+  padding: 0.75rem;
+  margin-bottom: 0.75rem;
+  border-radius: 4px;
+  border: 1px solid #dee2e6;
+}
+
+.answer-item.correct {
+  background: #d4edda;
+  border-color: #c3e6cb;
+}
+
+.answer-item.incorrect {
+  background: #f8d7da;
+  border-color: #f5c6cb;
+}
+
+.answer-item p {
+  margin-bottom: 0.25rem;
+  font-size: 0.9rem;
+}
+
+.answer-item strong {
+  color: #495057;
+}
+
+details {
+  margin-top: 0.5rem;
+}
+
+details summary {
+  cursor: pointer;
+  color: #228be6;
+  font-weight: 500;
+  padding: 0.5rem;
+  background: #e7f5ff;
+  border-radius: 4px;
+  border: 1px solid #b3d9ff;
+}
+
+details summary:hover {
+  background: #d0ebff;
+}
+
+details[open] summary {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom: none;
+}
+
+
+input:disabled,
+textarea:disabled {
+  background-color: #f8f9fa;
+  color: #adb5bd;
+  cursor: not-allowed;
+}
+
+.question-block label {
+  color: #495057;
+  font-weight: 500;
+}
+
+.question-block input:disabled {
+  background-color: #f8f9fa;
+  color: #adb5bd;
+  cursor: not-allowed;
+}
 
 /* main */
 footer {

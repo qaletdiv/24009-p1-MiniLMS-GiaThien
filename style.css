@@ -64,6 +64,7 @@ nav ul li a:hover{
     transition: all 0.3s;
     border: none;
     font-size: 0.95rem;
+    
 }
 .btn-login{
     background-color: #228be6;
@@ -161,6 +162,9 @@ main{
 .feature-card h3{
     color: #228be6;
     margin-bottom: 1rem;
+}
+.btn-handle{
+    margin-top: 1rem;
 }
 /* main */
 footer{

@@ -1,10 +1,6 @@
 function toTeacherDashboard() {
     window.location.href = "../teacher-dashboard/teacher-dashboard.html";
 }
-function signOut() {
-  localStorage.removeItem("currentUser");
-  window.location.href = "../index.html";
-}
 
 document.addEventListener("DOMContentLoaded", () => {
   const url = new URLSearchParams(window.location.search);
@@ -35,6 +31,9 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!exercise) return (container.innerHTML = "<p>Bài tập không tồn tại.</p>");
 
     
+    const exerciseSubmissions = JSON.parse(localStorage.getItem(`exercise_${exercise.id}_submissions`)) || [];
+    const hasSubmissions = exerciseSubmissions.length > 0;
+    
     const questionsHtml = exercise.questions.map((q, index) => {
       return `
         <div class="question-block">
@@ -42,12 +41,42 @@ document.addEventListener("DOMContentLoaded", () => {
           <p><strong>Đáp án đúng:</strong> ${q.answer}</p>
           <p><strong>Điểm:</strong> ${q.points}</p>
           <label>Chấm lại điểm:
-            <input type="number" min="0" max="${q.points}" class="regrade" data-q="${index}" />
+            <input type="number" min="0" max="${q.points}" class="regrade" data-q="${index}" ${!hasSubmissions ? 'disabled' : ''} />
           </label>
         </div>
         <hr />
       `;
     }).join("");
+
+   
+    let submissionsHtml = '';
+    if (hasSubmissions) {
+      submissionsHtml = `
+        <div class="submissions-section">
+          <h3>Bài nộp của học sinh (${exerciseSubmissions.length} bài)</h3>
+          ${exerciseSubmissions.map((submission, index) => `
+            <div class="submission-item">
+              <p><strong>Học sinh ${index + 1}:</strong> ${submission.studentName}</p>
+              <p><strong>Điểm:</strong> ${submission.totalScore}/${submission.maxScore}</p>
+              <p><strong>Thời gian nộp:</strong> ${new Date(submission.submittedAt).toLocaleString()}</p>
+              <details>
+                <summary>Xem chi tiết</summary>
+                <div class="submission-details">
+                  ${submission.answers.map((answer, qIndex) => `
+                    <div class="answer-item ${answer.isCorrect ? 'correct' : 'incorrect'}">
+                      <p><strong>Câu ${qIndex + 1}:</strong></p>
+                      <p>Trả lời: ${answer.userAnswer}</p>
+                      <p>Đáp án đúng: ${answer.correctAnswer}</p>
+                      <p>Điểm: ${answer.isCorrect ? answer.points : 0}/${answer.points}</p>
+                    </div>
+                  `).join('')}
+                </div>
+              </details>
+            </div>
+          `).join('')}
+        </div>
+      `;
+    }
 
     container.innerHTML = `
       <h2>${exercise.title}</h2>
@@ -58,33 +87,39 @@ document.addEventListener("DOMContentLoaded", () => {
       </div>
       <div class="feedback">
         <label>Nhận xét:</label><br />
-        <textarea id="feedback" rows="4" style="width: 100%;" placeholder="Nhập nhận xét..."></textarea>
+        <textarea id="feedback" rows="4" style="width: 100%;" placeholder="Nhập nhận xét..." ${!hasSubmissions ? 'disabled' : ''}></textarea>
       </div>
-      <button id="save-feedback">Lưu nhận xét & chấm điểm</button>
+      <button id="save-feedback" ${!hasSubmissions ? 'disabled' : ''}>
+        ${hasSubmissions ? 'Lưu nhận xét & chấm điểm' : 'Chưa có học sinh nộp bài'}
+      </button>
+      ${submissionsHtml}
     `;
 
-    document.getElementById("save-feedback").addEventListener("click", () => {
-      const feedback = document.getElementById("feedback").value.trim();
-      const regrades = Array.from(document.querySelectorAll(".regrade")).map(input => {
-        return {
-          questionIndex: parseInt(input.dataset.q),
-          newPoints: parseFloat(input.value || 0)
+    const saveButton = document.getElementById("save-feedback");
+    if (saveButton && hasSubmissions) {
+      saveButton.addEventListener("click", () => {
+        const feedback = document.getElementById("feedback").value.trim();
+        const regrades = Array.from(document.querySelectorAll(".regrade")).map(input => {
+          return {
+            questionIndex: parseInt(input.dataset.q),
+            newPoints: parseFloat(input.value || 0)
+          };
+        });
+
+        const submission = {
+          exerciseId: exercise.id,
+          feedback,
+          regrades,
+          updatedAt: new Date().toISOString()
         };
+
+        const submissions = JSON.parse(localStorage.getItem("submissions")) || [];
+        submissions.push(submission);
+        localStorage.setItem("submissions", JSON.stringify(submissions));
+
+        alert("Lưu nhận xét và điểm thành công!");
       });
-
-      const submission = {
-        exerciseId: exercise.id,
-        feedback,
-        regrades,
-        updatedAt: new Date().toISOString()
-      };
-
-      const submissions = JSON.parse(localStorage.getItem("submissions")) || [];
-      submissions.push(submission);
-      localStorage.setItem("submissions", JSON.stringify(submissions));
-
-      alert("Lưu nhận xét và điểm thành công!");
-    });
+    }
   }
 });
 
