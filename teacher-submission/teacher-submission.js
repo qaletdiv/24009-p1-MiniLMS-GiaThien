@@ -8,37 +8,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const type = url.get("type");
   const container = document.getElementById("content-container");
 
-  if (type === "lesson") {
-    const lessons = JSON.parse(localStorage.getItem("lessons")) || [];
-    const lesson = lessons.find(l => l.id === id);
-    if (!lesson) return (container.innerHTML = "<p>Bài giảng không tồn tại.</p>");
-
-    document.getElementById("page-title").textContent = "Chi tiết bài giảng";
-    container.innerHTML = `
-      <div class="submission-header">
-        <h2>${lesson.title}</h2>
-        <div class="submission-meta">
-          <span class="meta-item">Khối lớp: ${lesson.grade}</span>
-          <span class="meta-item">Ngày tạo: ${new Date(lesson.createdAt).toLocaleDateString('vi-VN')}</span>
-        </div>
-      </div>
-      
-      <div class="submission-content-wrapper">
-        <div class="submission-content">
-          <h2>Nội dung bài giảng</h2>
-          <div style="white-space: pre-line; line-height: 1.8; word-wrap: break-word;">
-            ${lesson.content}
-          </div>
-        </div>
-        
-        <div class="submission-actions">
-          <button class="btn btn-secondary" onclick="toTeacherDashboard()">Quay lại</button>
-          <button class="btn btn-primary" onclick="printLesson()">In bài giảng</button>
-        </div>
-      </div>
-    `;
-  }
-
   if (type === "exercise") {
     const exercises = JSON.parse(localStorage.getItem("exercises")) || [];
     const exercise = exercises.find(e => e.id === id);
@@ -49,8 +18,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let combinedHtml = `
       <h2>${exercise.title}</h2>
-      <p><strong>Khối lớp:</strong> ${exercise.grade}</p>
-      <p><strong>Hạn nộp:</strong> ${exercise.deadline}</p>
+      <div class="submission-meta">
+        <span class="meta-item">Khối lớp: ${exercise.grade}</span>
+        <span class="meta-item">Hạn nộp: ${exercise.deadline}</span>
+      </div>
     `;
 
     exercise.questions.forEach((q, index) => {
@@ -65,8 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
             <label>Nhập đáp án đúng:
               <input type="text" class="manual-answer" data-q="${index}" style="width: 100%; margin-top: 4px;" />
             </label>`
-            : `<p><strong>Đáp án đúng:</strong> ${q.answer}</p>`
-          }
+            : `<p><strong>Đáp án đúng:</strong> ${q.answer}</p>`}
 
           <p><strong>Điểm tối đa:</strong> ${q.points}</p>
 
@@ -99,12 +69,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     combinedHtml += `
-      <div class="feedback">
-        <label>Nhận xét:</label><br />
-        <textarea id="feedback" rows="4" style="width: 100%;" placeholder="Nhập nhận xét..." ${!hasSubmissions ? 'disabled' : ''}></textarea>
-      </div>
       <button id="save-feedback" ${!hasSubmissions ? 'disabled' : ''}>
-        ${hasSubmissions ? 'Lưu nhận xét & chấm điểm' : 'Chưa có học sinh nộp bài'}
+        ${hasSubmissions ? 'Lưu chấm điểm' : 'Chưa có học sinh nộp bài'}
       </button>
     `;
 
@@ -113,8 +79,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const saveButton = document.getElementById("save-feedback");
     if (saveButton && hasSubmissions) {
       saveButton.addEventListener("click", () => {
-        const feedback = document.getElementById("feedback").value.trim();
-
         const regrades = Array.from(document.querySelectorAll(".regrade")).map(input => ({
           questionIndex: parseInt(input.dataset.q),
           newPoints: parseFloat(input.value || 0)
@@ -125,12 +89,14 @@ document.addEventListener("DOMContentLoaded", () => {
           answer: input.value.trim()
         }));
 
+       
         manualAnswers.forEach(({ questionIndex, answer }) => {
           if (answer) {
             exercise.questions[questionIndex].answer = answer;
           }
         });
 
+        
         exerciseSubmissions.forEach(submission => {
           let totalScore = 0;
           let maxScore = 0;
@@ -138,19 +104,19 @@ document.addEventListener("DOMContentLoaded", () => {
           submission.answers.forEach((answer, i) => {
             const question = exercise.questions[i];
             const regradeEntry = regrades.find(r => r.questionIndex === i);
-            const newCorrectAnswer = question.answer;
+            const correctAnswer = question.answer;
 
-            answer.correctAnswer = newCorrectAnswer || "";
+            answer.correctAnswer = correctAnswer || "";
             answer.points = question.points;
 
             const manualScore = regradeEntry ? regradeEntry.newPoints : 0;
 
-            if (!newCorrectAnswer) {
+            if (!correctAnswer) {
               answer.status = "Đang chấm";
               answer.score = manualScore;
               answer.isCorrect = false;
             } else {
-              answer.isCorrect = answer.userAnswer?.trim().toLowerCase() === newCorrectAnswer.toLowerCase();
+              answer.isCorrect = answer.userAnswer?.trim().toLowerCase() === correctAnswer.toLowerCase();
               answer.status = answer.isCorrect ? "Đúng" : "Sai";
               answer.score = answer.isCorrect ? question.points : manualScore;
             }
@@ -164,6 +130,7 @@ document.addEventListener("DOMContentLoaded", () => {
           submission.status = "Đã chấm";
         });
 
+        
         const exercises = JSON.parse(localStorage.getItem("exercises")) || [];
         const exerciseIndex = exercises.findIndex(e => e.id === exercise.id);
         if (exerciseIndex !== -1) {
@@ -171,19 +138,22 @@ document.addEventListener("DOMContentLoaded", () => {
           localStorage.setItem("exercises", JSON.stringify(exercises));
         }
 
+        
         localStorage.setItem(`exercise_${exercise.id}_submissions`, JSON.stringify(exerciseSubmissions));
 
-        const submissionMeta = {
-          exerciseId: exercise.id,
-          feedback,
-          updatedAt: new Date().toISOString()
-        };
+        
+        const submittedExercises = JSON.parse(localStorage.getItem("submittedExercises")) || [];
+        exerciseSubmissions.forEach(scored => {
+          const i = submittedExercises.findIndex(
+            s => s.exerciseId === scored.exerciseId && s.studentName === scored.studentName
+          );
+          if (i !== -1) {
+            submittedExercises[i] = scored;
+          }
+        });
+        localStorage.setItem("submittedExercises", JSON.stringify(submittedExercises));
 
-        const submissions = JSON.parse(localStorage.getItem("submissions")) || [];
-        submissions.push(submissionMeta);
-        localStorage.setItem("submissions", JSON.stringify(submissions));
-
-        alert("Chấm bài và lưu nhận xét thành công!");
+        alert("Chấm bài thành công!");
         window.location.href = '../teacher-dashboard/teacher-dashboard.html';
       });
     }

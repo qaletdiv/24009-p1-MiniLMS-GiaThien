@@ -173,7 +173,8 @@ main {
   color: #495057;
 }
 
-.submission-content ul, .submission-content ol {
+.submission-content ul,
+.submission-content ol {
   margin: 1rem 0;
   padding-left: 2rem;
 }
@@ -261,6 +262,13 @@ main {
   margin-bottom: 2rem;
   font-size: 1.8rem;
 }
+.exercise-title{
+  color: #1864ab;
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 1.8rem;
+}
+
 
 input[type="number"] {
   padding: 6px;
@@ -327,6 +335,7 @@ input[type="number"]:focus {
   margin: 0.5rem 0;
   font-size: 1rem;
 }
+
 .manual-answer,
 .regrade {
   margin-top: 0.5rem;
@@ -590,25 +599,25 @@ footer {
   main {
     padding: 1rem;
   }
-  
+
   .submission-container {
     padding: 1.5rem;
     margin: 1rem;
   }
-  
+
   .submission-header h2 {
     font-size: 1.8rem;
   }
-  
+
   .submission-content {
     padding: 1.5rem;
   }
-  
+
   .submission-actions {
     flex-direction: column;
     gap: 0.8rem;
   }
-  
+
   .btn {
     width: 100%;
   }
@@ -618,20 +627,26 @@ footer {
   .submission-container {
     padding: 1rem;
   }
-  
+
   .submission-header h2 {
     font-size: 1.5rem;
   }
-  
+
   .submission-meta {
     flex-direction: column;
     gap: 0.5rem;
   }
-  
+
   .meta-item {
-    text-align: center;
+    background: #f8f9fa;
+    color: #495057;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border: 1px solid #e9ecef;
   }
-  
+
   .submission-content {
     padding: 1rem;
   }

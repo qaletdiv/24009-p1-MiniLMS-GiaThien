@@ -1,5 +1,5 @@
-function toStudentDashboard(){
-  window.location.href="../student-dashboard/student-dashboard.html"
+function toStudentDashboard() {
+  window.location.href = "../student-dashboard/student-dashboard.html";
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -14,10 +14,10 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
- 
   const exercises = JSON.parse(localStorage.getItem("exercises")) || [];
   const exercise = exercises.find(e => e.id === submission.exerciseId);
 
+  // ✅ Nếu có bài tập, đồng bộ lại kết quả theo chấm mới nhất
   if (exercise) {
     submission.answers.forEach((answer, i) => {
       const updatedQuestion = exercise.questions[i];
@@ -25,30 +25,41 @@ document.addEventListener("DOMContentLoaded", () => {
         answer.correctAnswer = updatedQuestion.answer;
         answer.points = updatedQuestion.points;
 
-        const isCorrect = answer.userAnswer?.trim().toLowerCase() === updatedQuestion.answer.trim().toLowerCase();
+        const isCorrect =
+          answer.userAnswer?.trim().toLowerCase() === updatedQuestion.answer.trim().toLowerCase();
         answer.isCorrect = isCorrect;
         answer.status = isCorrect ? "Đúng" : "Sai";
         answer.score = isCorrect ? updatedQuestion.points : 0;
       }
     });
 
-   
+    // ✅ Tính lại điểm số
     submission.totalScore = submission.answers.reduce((sum, a) => sum + (a.score || 0), 0);
     submission.maxScore = submission.answers.reduce((sum, a) => sum + (a.points || 0), 0);
+
+    // ✅ Ghi lại kết quả mới vào localStorage
+    const allSubmissions = JSON.parse(localStorage.getItem("submittedExercises")) || [];
+    const index = allSubmissions.findIndex(
+      s => s.exerciseId === submission.exerciseId && s.studentName === submission.studentName
+    );
+    if (index !== -1) {
+      allSubmissions[index] = submission;
+      localStorage.setItem("submittedExercises", JSON.stringify(allSubmissions));
+    }
   }
 
+  // ✅ Hiển thị tiêu đề
   document.getElementById("result-title").textContent = `Kết quả: ${submission.exerciseTitle}`;
 
   const totalQuestions = submission.answers.length;
-
-
   const autoGraded = submission.answers.filter(a => a.correctAnswer?.trim() !== "");
   const correctAnswers = autoGraded.filter(a => a.isCorrect).length;
   const wrongAnswers = autoGraded.length - correctAnswers;
 
-  const percentage = submission.maxScore > 0
-    ? Math.round((submission.totalScore / submission.maxScore) * 100)
-    : 0;
+  const percentage =
+    submission.maxScore > 0
+      ? Math.round((submission.totalScore / submission.maxScore) * 100)
+      : 0;
 
   const scoreDisplay = document.getElementById("score-display");
   if (scoreDisplay) {
@@ -76,10 +87,11 @@ document.addEventListener("DOMContentLoaded", () => {
   if (resultDetail) {
     resultDetail.innerHTML = `
       <h3>Chi tiết từng câu</h3>
-      ${submission.answers.map((answer, index) => {
-        const isManual = !answer.correctAnswer?.trim();
+      ${submission.answers
+        .map((answer, index) => {
+          const isManual = !answer.correctAnswer?.trim();
 
-        return `
+          return `
           <div class="question-result ${isManual ? 'pending' : (answer.isCorrect ? 'correct' : 'incorrect')}">
             <div class="question-text">
               <h4>Câu ${index + 1}</h4>
@@ -118,7 +130,8 @@ document.addEventListener("DOMContentLoaded", () => {
             </div>
           </div>
         `;
-      }).join("")}
+        })
+        .join("")}
     `;
   }
 

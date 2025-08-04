@@ -6,7 +6,7 @@ const lesson = lessons.find(l => l.id === id);
 if (lesson) {
   document.getElementById("lesson-title").textContent = lesson.title;
   document.getElementById("lesson-grade").textContent = `Khối lớp: ${lesson.grade}`;
-  
+  document.getElementById("lesson-date").textContent = `Ngày tạo: ${new Date(lesson.createdAt).toLocaleDateString('vi-VN')}`;
  
   const lessonContent = document.getElementById("lesson-content");
   lessonContent.innerHTML = lesson.content.replace(/\n/g, '<br>');
