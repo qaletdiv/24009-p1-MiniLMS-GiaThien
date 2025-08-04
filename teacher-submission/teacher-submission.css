@@ -64,13 +64,14 @@ nav ul li a:hover {
 }
 
 .btn {
-  padding: 0.5rem 1.2rem;
-  border-radius: 5px;
-  font-weight: 500;
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
   cursor: pointer;
-  transition: all 0.3s;
+  transition: all 0.3s ease;
   border: none;
-  font-size: 0.95rem;
+  min-width: 120px;
 }
 
 .btn-logout {
@@ -84,13 +85,168 @@ nav ul li a:hover {
 }
 
 /* header */
+main {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 2rem;
+  min-height: calc(100vh - 200px);
+}
+
 .submission-container {
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  width: 100%;
   max-width: 900px;
-  margin: 30px auto;
-  padding: 20px;
-  background: white;
+  padding: 2rem;
+  margin: 0;
+}
+
+.submission-header {
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 2px solid #f1f3f4;
+  text-align: center;
+}
+
+.submission-header h2 {
+  color: #1864ab;
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.submission-meta {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+
+.meta-item {
+  background: #f8f9fa;
+  color: #495057;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border: 1px solid #e9ecef;
+}
+
+.submission-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.submission-content {
+  background: #ffffff;
+  border: 1px solid #e9ecef;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  line-height: 1.8;
+  white-space: pre-line;
+  word-wrap: break-word;
+}
+
+.submission-content h2 {
+  color: #1864ab;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #e7f5ff;
+  padding-bottom: 0.5rem;
+}
+
+.submission-content h3 {
+  color: #495057;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 1.5rem 0 0.8rem 0;
+}
+
+.submission-content p {
+  margin-bottom: 1rem;
+  color: #495057;
+}
+
+.submission-content ul, .submission-content ol {
+  margin: 1rem 0;
+  padding-left: 2rem;
+}
+
+.submission-content li {
+  margin-bottom: 0.5rem;
+}
+
+.submission-content blockquote {
+  background: #f8f9fa;
+  border-left: 4px solid #228be6;
+  padding: 1rem;
+  margin: 1rem 0;
+  font-style: italic;
+  color: #495057;
+}
+
+.submission-content code {
+  background: #f1f3f4;
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+}
+
+.submission-content pre {
+  background: #f8f9fa;
+  padding: 1rem;
   border-radius: 8px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  overflow-x: auto;
+  border: 1px solid #e9ecef;
+}
+
+.submission-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e9ecef;
+}
+
+.btn {
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+  min-width: 120px;
+}
+
+.btn-primary {
+  background: #228be6;
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #1864ab;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(34, 139, 230, 0.3);
+}
+
+.btn-secondary {
+  background: #f8f9fa;
+  color: #495057;
+  border: 1px solid #e9ecef;
+}
+
+.btn-secondary:hover {
+  background: #e9ecef;
+  transform: translateY(-2px);
 }
 
 .submission {
@@ -171,7 +327,7 @@ input[type="number"]:focus {
   margin: 0.5rem 0;
   font-size: 1rem;
 }
-
+.manual-answer,
 .regrade {
   margin-top: 0.5rem;
   padding: 0.4rem;
@@ -277,6 +433,11 @@ input[type="number"]:focus {
 .answer-item.incorrect {
   background: #f8d7da;
   border-color: #f5c6cb;
+}
+
+.answer-item.pending {
+  background: #fff3cd;
+  border-color: #ffeaa7;
 }
 
 .answer-item p {
@@ -427,18 +588,52 @@ footer {
 /* Mobile lớn / tablet nhỏ (≤ 768px) */
 @media (max-width: 768px) {
   main {
-    padding: 10px;
+    padding: 1rem;
   }
-
-  .dashboard-container,
-  .teacher-container,
-  .create-exercise-container {
-    padding: 16px;
+  
+  .submission-container {
+    padding: 1.5rem;
+    margin: 1rem;
   }
-
-  .form-control,
+  
+  .submission-header h2 {
+    font-size: 1.8rem;
+  }
+  
+  .submission-content {
+    padding: 1.5rem;
+  }
+  
+  .submission-actions {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+  
   .btn {
-    font-size: 1rem;
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .submission-container {
+    padding: 1rem;
+  }
+  
+  .submission-header h2 {
+    font-size: 1.5rem;
+  }
+  
+  .submission-meta {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .meta-item {
+    text-align: center;
+  }
+  
+  .submission-content {
+    padding: 1rem;
   }
 }
 

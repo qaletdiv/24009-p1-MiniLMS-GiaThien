@@ -38,7 +38,7 @@ lectureForm.addEventListener("submit", function (e) {
 
   const title = document.getElementById("title").value.trim();
   const grade = document.getElementById("grade").value;
-  const content = document.getElementById("content").value.trim();
+  const content = document.getElementById("content").value; // Bỏ .trim() để giữ line breaks
 
   const lessons = JSON.parse(localStorage.getItem("lessons")) || [];
 
@@ -76,12 +76,13 @@ exerciseForm.addEventListener("submit", function (e) {
     const answer = el.querySelector(".correct-answer").value.trim();
     const points = parseFloat(el.querySelector(".exercise-points").value);
 
-    if (question && answer && !isNaN(points)) {
+    if (question && !isNaN(points)) {
       questions.push({
         id: index + 1,
         question,
-        answer,
-        points
+        answer: answer || "", 
+        points,
+        hasAnswer: answer.length > 0 
       });
     }
   });
@@ -128,8 +129,8 @@ addButton.addEventListener("click", () => {
       <textarea class="form-control exercise-question" name="question-${count}" rows="3" placeholder="Nhập câu hỏi" required></textarea>
     </div>
     <div class="form-group">
-      <label>Đáp án đúng</label>
-      <input type="text" class="form-control correct-answer" name="answer-${count}" placeholder="Nhập đáp án đúng" required>
+      <label>Đáp án đúng (không bắt buộc)</label>
+      <input type="text" class="form-control correct-answer" name="answer-${count}" placeholder="Nhập đáp án đúng hoặc để trống để chấm thủ công">
     </div>
     <div class="form-group">
       <label>Điểm số</label>

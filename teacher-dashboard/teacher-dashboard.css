@@ -238,12 +238,63 @@ main{
     margin-bottom: 0.8rem;
     background: #f8f9fa;
     transition: all 0.3s ease;
+}
+
+.lesson-content,
+.exercise-content {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
+    gap: 1rem;
 }
 
+.lesson-title,
+.exercise-title {
+    color: #495057;
+    font-weight: 500;
+    flex: 1;
+    font-size: 1rem;
+}
 
+.btn-view-lesson,
+.btn-view-exercise {
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-weight: 500;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    min-width: 120px;
+}
+
+.btn-view-lesson {
+    background: #228be6;
+    color: white;
+}
+
+.btn-view-lesson:hover {
+    background: #1864ab;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(34, 139, 230, 0.3);
+}
+
+.btn-view-exercise {
+    background: #40c057;
+    color: white;
+}
+
+.btn-view-exercise:hover {
+    background: #2b8a3e;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(64, 192, 87, 0.3);
+}
+
+.item-list li:hover {
+    border-color: #228be6;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
 
 .item-list li a {
     text-decoration: none;
@@ -300,6 +351,19 @@ main{
     .stat-content h3 {
         font-size: 1.5rem;
     }
+
+    .lesson-content,
+    .exercise-content {
+        flex-direction: column;
+        gap: 0.8rem;
+        text-align: center;
+    }
+    
+    .btn-view-lesson,
+    .btn-view-exercise {
+        width: 100%;
+        min-width: auto;
+    }
 }
 
 @media (max-width: 480px) {
@@ -313,7 +377,26 @@ main{
     
     .header-actions {
         flex-direction: column;
+        gap: 0.8rem;
+    }
+    
+    .lesson-content,
+    .exercise-content {
+        flex-direction: column;
         gap: 0.5rem;
+        text-align: center;
+    }
+    
+    .lesson-title,
+    .exercise-title {
+        font-size: 0.9rem;
+    }
+    
+    .btn-view-lesson,
+    .btn-view-exercise {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.8rem;
+        width: 100%;
     }
 }
 

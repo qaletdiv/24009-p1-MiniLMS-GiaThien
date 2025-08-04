@@ -1,5 +1,5 @@
 function toTeacherDashboard() {
-    window.location.href = "../teacher-dashboard/teacher-dashboard.html";
+  window.location.href = "../teacher-dashboard/teacher-dashboard.html";
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -15,12 +15,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.getElementById("page-title").textContent = "Chi tiết bài giảng";
     container.innerHTML = `
-      <h2>${lesson.title}</h2>
-      <p><strong>Khối lớp:</strong> ${lesson.grade}</p>
-      <p><strong>Ngày tạo:</strong> ${new Date(lesson.createdAt).toLocaleString()}</p>
-      <div><strong>Nội dung:</strong></div>
-      <div style="white-space: pre-line; border: 1px solid #ddd; padding: 10px; margin-top: 10px;">
-        ${lesson.content}
+      <div class="submission-header">
+        <h2>${lesson.title}</h2>
+        <div class="submission-meta">
+          <span class="meta-item">Khối lớp: ${lesson.grade}</span>
+          <span class="meta-item">Ngày tạo: ${new Date(lesson.createdAt).toLocaleDateString('vi-VN')}</span>
+        </div>
+      </div>
+      
+      <div class="submission-content-wrapper">
+        <div class="submission-content">
+          <h2>Nội dung bài giảng</h2>
+          <div style="white-space: pre-line; line-height: 1.8; word-wrap: break-word;">
+            ${lesson.content}
+          </div>
+        </div>
+        
+        <div class="submission-actions">
+          <button class="btn btn-secondary" onclick="toTeacherDashboard()">Quay lại</button>
+          <button class="btn btn-primary" onclick="printLesson()">In bài giảng</button>
+        </div>
       </div>
     `;
   }
@@ -30,61 +44,61 @@ document.addEventListener("DOMContentLoaded", () => {
     const exercise = exercises.find(e => e.id === id);
     if (!exercise) return (container.innerHTML = "<p>Bài tập không tồn tại.</p>");
 
-    
     const exerciseSubmissions = JSON.parse(localStorage.getItem(`exercise_${exercise.id}_submissions`)) || [];
     const hasSubmissions = exerciseSubmissions.length > 0;
-    
-    const questionsHtml = exercise.questions.map((q, index) => {
-      return `
-        <div class="question-block">
-          <p><strong>Câu ${index + 1}:</strong> ${q.question}</p>
-          <p><strong>Đáp án đúng:</strong> ${q.answer}</p>
-          <p><strong>Điểm:</strong> ${q.points}</p>
-          <label>Chấm lại điểm:
-            <input type="number" min="0" max="${q.points}" class="regrade" data-q="${index}" ${!hasSubmissions ? 'disabled' : ''} />
-          </label>
-        </div>
-        <hr />
-      `;
-    }).join("");
 
-   
-    let submissionsHtml = '';
-    if (hasSubmissions) {
-      submissionsHtml = `
-        <div class="submissions-section">
-          <h3>Bài nộp của học sinh (${exerciseSubmissions.length} bài)</h3>
-          ${exerciseSubmissions.map((submission, index) => `
-            <div class="submission-item">
-              <p><strong>Học sinh ${index + 1}:</strong> ${submission.studentName}</p>
-              <p><strong>Điểm:</strong> ${submission.totalScore}/${submission.maxScore}</p>
-              <p><strong>Thời gian nộp:</strong> ${new Date(submission.submittedAt).toLocaleString()}</p>
-              <details>
-                <summary>Xem chi tiết</summary>
-                <div class="submission-details">
-                  ${submission.answers.map((answer, qIndex) => `
-                    <div class="answer-item ${answer.isCorrect ? 'correct' : 'incorrect'}">
-                      <p><strong>Câu ${qIndex + 1}:</strong></p>
-                      <p>Trả lời: ${answer.userAnswer}</p>
-                      <p>Đáp án đúng: ${answer.correctAnswer}</p>
-                      <p>Điểm: ${answer.isCorrect ? answer.points : 0}/${answer.points}</p>
-                    </div>
-                  `).join('')}
-                </div>
-              </details>
-            </div>
-          `).join('')}
-        </div>
-      `;
-    }
-
-    container.innerHTML = `
+    let combinedHtml = `
       <h2>${exercise.title}</h2>
       <p><strong>Khối lớp:</strong> ${exercise.grade}</p>
       <p><strong>Hạn nộp:</strong> ${exercise.deadline}</p>
-      <div class="questions">
-        ${questionsHtml}
-      </div>
+    `;
+
+    exercise.questions.forEach((q, index) => {
+      const isManual = !q.answer?.trim();
+
+      combinedHtml += `
+        <div class="question-block">
+          <p><strong>Câu ${index + 1}:</strong> ${q.question}</p>
+
+          ${isManual
+            ? `
+            <label>Nhập đáp án đúng:
+              <input type="text" class="manual-answer" data-q="${index}" style="width: 100%; margin-top: 4px;" />
+            </label>`
+            : `<p><strong>Đáp án đúng:</strong> ${q.answer}</p>`
+          }
+
+          <p><strong>Điểm tối đa:</strong> ${q.points}</p>
+
+          <label>Chấm bài:
+            <input type="number" min="0" max="${q.points}" class="regrade" data-q="${index}" ${!hasSubmissions ? 'disabled' : ''} />
+          </label>
+      `;
+
+      if (hasSubmissions) {
+        combinedHtml += `<div class="submission-details-per-question"><h4>Học sinh trả lời:</h4>`;
+        exerciseSubmissions.forEach((submission, sIndex) => {
+          const answer = submission.answers[index];
+          if (!answer) return;
+
+          combinedHtml += `
+            <div class="submission-item ${answer.status === 'Đang chấm' ? 'pending' : (answer.isCorrect ? 'correct' : 'incorrect')}">
+              <p><strong>Học sinh ${sIndex + 1}:</strong> ${submission.studentName}</p>
+              <p>Trả lời: ${answer.userAnswer}</p>
+              <p>Đáp án đúng: ${answer.correctAnswer || '<i>Chưa có</i>'}</p>
+              <p>Trạng thái: ${answer.status}</p>
+              <p>Điểm: ${answer.score}/${answer.points}</p>
+              <p>Thời gian nộp: ${new Date(submission.submittedAt).toLocaleString()}</p>
+            </div>
+          `;
+        });
+        combinedHtml += `</div>`;
+      }
+
+      combinedHtml += `<hr /></div>`;
+    });
+
+    combinedHtml += `
       <div class="feedback">
         <label>Nhận xét:</label><br />
         <textarea id="feedback" rows="4" style="width: 100%;" placeholder="Nhập nhận xét..." ${!hasSubmissions ? 'disabled' : ''}></textarea>
@@ -92,34 +106,90 @@ document.addEventListener("DOMContentLoaded", () => {
       <button id="save-feedback" ${!hasSubmissions ? 'disabled' : ''}>
         ${hasSubmissions ? 'Lưu nhận xét & chấm điểm' : 'Chưa có học sinh nộp bài'}
       </button>
-      ${submissionsHtml}
     `;
+
+    container.innerHTML = combinedHtml;
 
     const saveButton = document.getElementById("save-feedback");
     if (saveButton && hasSubmissions) {
       saveButton.addEventListener("click", () => {
         const feedback = document.getElementById("feedback").value.trim();
-        const regrades = Array.from(document.querySelectorAll(".regrade")).map(input => {
-          return {
-            questionIndex: parseInt(input.dataset.q),
-            newPoints: parseFloat(input.value || 0)
-          };
+
+        const regrades = Array.from(document.querySelectorAll(".regrade")).map(input => ({
+          questionIndex: parseInt(input.dataset.q),
+          newPoints: parseFloat(input.value || 0)
+        }));
+
+        const manualAnswers = Array.from(document.querySelectorAll(".manual-answer")).map(input => ({
+          questionIndex: parseInt(input.dataset.q),
+          answer: input.value.trim()
+        }));
+
+        manualAnswers.forEach(({ questionIndex, answer }) => {
+          if (answer) {
+            exercise.questions[questionIndex].answer = answer;
+          }
         });
 
-        const submission = {
+        exerciseSubmissions.forEach(submission => {
+          let totalScore = 0;
+          let maxScore = 0;
+
+          submission.answers.forEach((answer, i) => {
+            const question = exercise.questions[i];
+            const regradeEntry = regrades.find(r => r.questionIndex === i);
+            const newCorrectAnswer = question.answer;
+
+            answer.correctAnswer = newCorrectAnswer || "";
+            answer.points = question.points;
+
+            const manualScore = regradeEntry ? regradeEntry.newPoints : 0;
+
+            if (!newCorrectAnswer) {
+              answer.status = "Đang chấm";
+              answer.score = manualScore;
+              answer.isCorrect = false;
+            } else {
+              answer.isCorrect = answer.userAnswer?.trim().toLowerCase() === newCorrectAnswer.toLowerCase();
+              answer.status = answer.isCorrect ? "Đúng" : "Sai";
+              answer.score = answer.isCorrect ? question.points : manualScore;
+            }
+
+            totalScore += answer.score;
+            maxScore += question.points;
+          });
+
+          submission.totalScore = totalScore;
+          submission.maxScore = maxScore;
+          submission.status = "Đã chấm";
+        });
+
+        const exercises = JSON.parse(localStorage.getItem("exercises")) || [];
+        const exerciseIndex = exercises.findIndex(e => e.id === exercise.id);
+        if (exerciseIndex !== -1) {
+          exercises[exerciseIndex] = exercise;
+          localStorage.setItem("exercises", JSON.stringify(exercises));
+        }
+
+        localStorage.setItem(`exercise_${exercise.id}_submissions`, JSON.stringify(exerciseSubmissions));
+
+        const submissionMeta = {
           exerciseId: exercise.id,
           feedback,
-          regrades,
           updatedAt: new Date().toISOString()
         };
 
         const submissions = JSON.parse(localStorage.getItem("submissions")) || [];
-        submissions.push(submission);
+        submissions.push(submissionMeta);
         localStorage.setItem("submissions", JSON.stringify(submissions));
 
-        alert("Lưu nhận xét và điểm thành công!");
+        alert("Chấm bài và lưu nhận xét thành công!");
+        window.location.href = '../teacher-dashboard/teacher-dashboard.html';
       });
     }
   }
 });
 
+function printLesson() {
+  window.print();
+}

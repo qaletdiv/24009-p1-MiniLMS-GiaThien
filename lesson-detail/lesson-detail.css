@@ -144,10 +144,10 @@ main {
   border: 1px solid #e9ecef;
   border-radius: 12px;
   padding: 2rem;
-  line-height: 1.8;
-  font-size: 1.1rem;
-  color: #333;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  line-height: 1.8;
+  white-space: pre-line;
+  word-wrap: break-word;
 }
 
 .lesson-content h2 {

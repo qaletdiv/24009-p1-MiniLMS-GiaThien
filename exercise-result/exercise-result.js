@@ -1,31 +1,138 @@
-
 function toStudentDashboard(){
-    window.location.href="../student-dashboard/student-dashboard.html"
+  window.location.href="../student-dashboard/student-dashboard.html"
 }
-    const params = new URLSearchParams(location.search);
-    const id = parseInt(params.get("id"));
 
-    const submissions = JSON.parse(localStorage.getItem("submittedExercises")) || [];
-    const submission = submissions.find(s => s.exerciseId === id);
+document.addEventListener("DOMContentLoaded", () => {
+  const params = new URLSearchParams(location.search);
+  const id = parseInt(params.get("id"));
 
-    const resultEl = document.getElementById("result-detail");
+  const submissions = JSON.parse(localStorage.getItem("submittedExercises")) || [];
+  const submission = submissions.find(s => s.exerciseId === id);
 
-    if (!submission) {
-      resultEl.innerHTML = "<p>Không tìm thấy bài làm.</p>";
-    } else {
-      document.getElementById("result-title").textContent = `Kết quả: ${submission.exerciseTitle}`;
-      resultEl.innerHTML = `
-        <p>Điểm: <strong>${submission.totalScore}/${submission.maxScore}</strong></p>
-        <hr>
-        ${submission.answers.map((a, i) => `
-          <div>
-            <p><strong>Câu ${i + 1}:</strong> ${a.question}</p>
-            <p>Trả lời: ${a.userAnswer}</p>
-            <p>Đáp án đúng: ${a.correctAnswer}</p>
-            <p>Đúng / Sai: <strong style="color: ${a.isCorrect ? 'green' : 'red'}">${a.isCorrect ? 'ĐÚNG' : 'SAI'}</strong></p>
-            <p>Điểm: ${a.isCorrect ? a.points : 0}/${a.points}</p>
-            <hr>
+  if (!submission) {
+    document.getElementById("result-detail").innerHTML = "<p>Không tìm thấy bài làm.</p>";
+    return;
+  }
+
+ 
+  const exercises = JSON.parse(localStorage.getItem("exercises")) || [];
+  const exercise = exercises.find(e => e.id === submission.exerciseId);
+
+  if (exercise) {
+    submission.answers.forEach((answer, i) => {
+      const updatedQuestion = exercise.questions[i];
+      if (updatedQuestion && updatedQuestion.answer?.trim()) {
+        answer.correctAnswer = updatedQuestion.answer;
+        answer.points = updatedQuestion.points;
+
+        const isCorrect = answer.userAnswer?.trim().toLowerCase() === updatedQuestion.answer.trim().toLowerCase();
+        answer.isCorrect = isCorrect;
+        answer.status = isCorrect ? "Đúng" : "Sai";
+        answer.score = isCorrect ? updatedQuestion.points : 0;
+      }
+    });
+
+   
+    submission.totalScore = submission.answers.reduce((sum, a) => sum + (a.score || 0), 0);
+    submission.maxScore = submission.answers.reduce((sum, a) => sum + (a.points || 0), 0);
+  }
+
+  document.getElementById("result-title").textContent = `Kết quả: ${submission.exerciseTitle}`;
+
+  const totalQuestions = submission.answers.length;
+
+
+  const autoGraded = submission.answers.filter(a => a.correctAnswer?.trim() !== "");
+  const correctAnswers = autoGraded.filter(a => a.isCorrect).length;
+  const wrongAnswers = autoGraded.length - correctAnswers;
+
+  const percentage = submission.maxScore > 0
+    ? Math.round((submission.totalScore / submission.maxScore) * 100)
+    : 0;
+
+  const scoreDisplay = document.getElementById("score-display");
+  if (scoreDisplay) {
+    scoreDisplay.innerHTML = `
+      <span class="score-number">${submission.totalScore}</span>
+      <span class="score-separator">/</span>
+      <span class="score-max">${submission.maxScore}</span>
+    `;
+  }
+
+  const scorePercentage = document.getElementById("score-percentage");
+  if (scorePercentage) {
+    scorePercentage.textContent = `${percentage}%`;
+  }
+
+  const totalQuestionsEl = document.getElementById("total-questions");
+  const correctAnswersEl = document.getElementById("correct-answers");
+  const wrongAnswersEl = document.getElementById("wrong-answers");
+
+  if (totalQuestionsEl) totalQuestionsEl.textContent = totalQuestions;
+  if (correctAnswersEl) correctAnswersEl.textContent = correctAnswers;
+  if (wrongAnswersEl) wrongAnswersEl.textContent = wrongAnswers;
+
+  const resultDetail = document.getElementById("result-detail");
+  if (resultDetail) {
+    resultDetail.innerHTML = `
+      <h3>Chi tiết từng câu</h3>
+      ${submission.answers.map((answer, index) => {
+        const isManual = !answer.correctAnswer?.trim();
+
+        return `
+          <div class="question-result ${isManual ? 'pending' : (answer.isCorrect ? 'correct' : 'incorrect')}">
+            <div class="question-text">
+              <h4>Câu ${index + 1}</h4>
+              <p>${answer.question}</p>
+            </div>
+            <div class="answer-section">
+              <div class="answer-item">
+                <span class="answer-label">Trả lời của bạn:</span>
+                <span class="user-answer">${answer.userAnswer || "<i>Không trả lời</i>"}</span>
+              </div>
+              ${
+                !isManual
+                  ? `
+                <div class="answer-item">
+                  <span class="answer-label">Đáp án đúng:</span>
+                  <span class="correct-answer">${answer.correctAnswer}</span>
+                </div>
+                <div class="answer-item">
+                  <span class="answer-label">Kết quả:</span>
+                  <span class="${answer.isCorrect ? 'correct' : 'wrong'}-answer">
+                    ${answer.status}
+                  </span>
+                </div>
+                <div class="answer-item">
+                  <span class="answer-label">Điểm:</span>
+                  <span class="points">${answer.score}/${answer.points}</span>
+                </div>
+              `
+                  : `
+                <div class="answer-item">
+                  <span class="answer-label">Kết quả:</span>
+                  <span class="pending-answer">Đang chấm</span>
+                </div>
+              `
+              }
+            </div>
           </div>
-        `).join("")}
-      `;
-    }
+        `;
+      }).join("")}
+    `;
+  }
+
+  const resultHeader = document.querySelector(".result-header");
+  if (resultHeader) {
+    const metaInfo = document.createElement("div");
+    metaInfo.className = "result-meta";
+    metaInfo.innerHTML = `
+      <span class="meta-item">Ngày nộp: ${new Date(submission.submittedAt).toLocaleDateString('vi-VN')}</span>
+    `;
+    resultHeader.appendChild(metaInfo);
+  }
+});
+
+function printResult() {
+  window.print();
+}

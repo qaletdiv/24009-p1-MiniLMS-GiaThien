@@ -158,15 +158,33 @@ function handleSubmit(e) {
 
   exercise.questions.forEach((q, index) => {
     const userAnswer = userAnswers[index] || "";
-    const isCorrect = userAnswer.toLowerCase().trim() === q.answer.toLowerCase().trim();
-    if (isCorrect) total += q.points;
+    
+    
+    let isCorrect = false;
+    let score = 0;
+    let status = "Đang chấm";
+    
+    if (q.answer && q.answer.trim() !== "") {
+      
+      isCorrect = userAnswer.toLowerCase().trim() === q.answer.toLowerCase().trim();
+      score = isCorrect ? q.points : 0;
+      status = isCorrect ? "ĐÚNG" : "SAI";
+      total += score;
+    } else {
+      
+      score = 0;
+      status = "Đang chấm";
+    }
 
     answers.push({
       question: q.question,
       userAnswer: userAnswer.trim(),
-      correctAnswer: q.answer,
+      correctAnswer: q.answer || "",
       isCorrect,
-      points: q.points
+      points: q.points,
+      score: score,
+      status: status,
+      hasAnswer: q.answer && q.answer.trim() !== ""
     });
   });
 

@@ -196,10 +196,15 @@ footer{
     margin-bottom: 1.5rem;
     font-size: 1.2rem;
 }
+.footer-links{
+    margin-top: 2rem;
+    margin-left: 3rem;
+}
 .footer-links ul{
     list-style: none;
     display: flex;
     flex-direction: column;
+
 }
 .footer-links ul li{
     margin-bottom: 0.8rem;

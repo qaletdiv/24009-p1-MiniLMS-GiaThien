@@ -1,4 +1,6 @@
-
+function toIndex(){
+  window.location.href='../index.html'
+}
 
 function updateStats() {
   const lessons = JSON.parse(localStorage.getItem("lessons")) || [];
@@ -35,11 +37,14 @@ function updateStats() {
   if (exercisePendingElement) {
     exercisePendingElement.textContent = pendingExercises.length;
   }
+  if(exerciseCompletedElement){
+    exerciseCompletedElement.textContent=submittedExercises.length;
+  }
   
  
   
   
-  // Cập nhật số đếm trong section headers
+  
   const lessonCountBadge = document.getElementById("lesson-count-badge");
   const exerciseCountBadge = document.getElementById("exercise-count-badge");
   

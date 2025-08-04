@@ -141,7 +141,7 @@ main {
 .progress-bar {
   background: #f8f9fa;
   border-radius: 10px;
-  height: 8px;
+  height: 16px;
   position: relative;
   overflow: hidden;
   border: 1px solid #e9ecef;
