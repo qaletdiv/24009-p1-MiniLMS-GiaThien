@@ -7,6 +7,40 @@ document.addEventListener("DOMContentLoaded", () => {
   const id = parseInt(url.get("id"));
   const type = url.get("type");
   const container = document.getElementById("content-container");
+  if (type === "lesson") {
+    const lessons = JSON.parse(localStorage.getItem("lessons")) || [];
+    const lesson = lessons.find(l => l.id === id);
+    if (!lesson) {
+      container.innerHTML = "<p>Bài giảng không tồn tại.</p>";
+      return;
+    }
+
+    document.getElementById("page-title").textContent = "Chi tiết bài giảng";
+    container.innerHTML = `
+    <div class="submission-header">
+      <h2>${lesson.title}</h2>
+      <div class="submission-meta">
+        <span class="meta-item">Khối lớp: ${lesson.grade}</span>
+        <span class="meta-item">Ngày tạo: ${new Date(lesson.createdAt).toLocaleDateString('vi-VN')}</span>
+      </div>
+    </div>
+    
+    <div class="submission-content-wrapper">
+      <div class="submission-content">
+        <h2>Nội dung bài giảng</h2>
+        <div style="white-space: pre-line; line-height: 1.8; word-wrap: break-word;">
+          ${lesson.content}
+        </div>
+      </div>
+      
+      <div class="submission-actions">
+        <button class="btn btn-secondary" onclick="toTeacherDashboard()">Quay lại</button>
+        <button class="btn btn-primary" onclick="printLesson()">In bài giảng</button>
+      </div>
+    </div>
+  `;
+  }
+
 
   if (type === "exercise") {
     const exercises = JSON.parse(localStorage.getItem("exercises")) || [];
@@ -32,11 +66,11 @@ document.addEventListener("DOMContentLoaded", () => {
           <p><strong>Câu ${index + 1}:</strong> ${q.question}</p>
 
           ${isManual
-            ? `
+          ? `
             <label>Nhập đáp án đúng:
               <input type="text" class="manual-answer" data-q="${index}" style="width: 100%; margin-top: 4px;" />
             </label>`
-            : `<p><strong>Đáp án đúng:</strong> ${q.answer}</p>`}
+          : `<p><strong>Đáp án đúng:</strong> ${q.answer}</p>`}
 
           <p><strong>Điểm tối đa:</strong> ${q.points}</p>
 
@@ -89,14 +123,14 @@ document.addEventListener("DOMContentLoaded", () => {
           answer: input.value.trim()
         }));
 
-       
+
         manualAnswers.forEach(({ questionIndex, answer }) => {
           if (answer) {
             exercise.questions[questionIndex].answer = answer;
           }
         });
 
-        
+
         exerciseSubmissions.forEach(submission => {
           let totalScore = 0;
           let maxScore = 0;
@@ -130,7 +164,7 @@ document.addEventListener("DOMContentLoaded", () => {
           submission.status = "Đã chấm";
         });
 
-        
+
         const exercises = JSON.parse(localStorage.getItem("exercises")) || [];
         const exerciseIndex = exercises.findIndex(e => e.id === exercise.id);
         if (exerciseIndex !== -1) {
@@ -138,10 +172,10 @@ document.addEventListener("DOMContentLoaded", () => {
           localStorage.setItem("exercises", JSON.stringify(exercises));
         }
 
-        
+
         localStorage.setItem(`exercise_${exercise.id}_submissions`, JSON.stringify(exerciseSubmissions));
 
-        
+
         const submittedExercises = JSON.parse(localStorage.getItem("submittedExercises")) || [];
         exerciseSubmissions.forEach(scored => {
           const i = submittedExercises.findIndex(
