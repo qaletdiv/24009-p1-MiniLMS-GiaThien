@@ -28,9 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
     <div class="submission-content-wrapper">
       <div class="submission-content">
         <h2>Nội dung bài giảng</h2>
-        <pre style=" line-height: 1.8; word-wrap: break-word;">
-          ${lesson.content}
-        </pre>
+        <pre style="line-height: 1.8; word-wrap: break-word;">${lesson.content}</pre>
       </div>
       
       <div class="submission-actions">
