@@ -28,9 +28,9 @@ document.addEventListener("DOMContentLoaded", () => {
     <div class="submission-content-wrapper">
       <div class="submission-content">
         <h2>Nội dung bài giảng</h2>
-        <div style="white-space: pre-line; line-height: 1.8; word-wrap: break-word;">
+        <pre style=" line-height: 1.8; word-wrap: break-word;">
           ${lesson.content}
-        </div>
+        </pre>
       </div>
       
       <div class="submission-actions">
@@ -51,11 +51,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const hasSubmissions = exerciseSubmissions.length > 0;
 
     let combinedHtml = `
+    <div class="submission-header">
       <h2>${exercise.title}</h2>
       <div class="submission-meta">
         <span class="meta-item">Khối lớp: ${exercise.grade}</span>
         <span class="meta-item">Hạn nộp: ${exercise.deadline}</span>
       </div>
+    </div>
     `;
 
     exercise.questions.forEach((q, index) => {
