@@ -6,8 +6,22 @@ document.addEventListener("DOMContentLoaded", () => {
   const params = new URLSearchParams(location.search);
   const id = parseInt(params.get("id"));
 
-  const submissions = JSON.parse(localStorage.getItem("submittedExercises")) || [];
-  const submission = submissions.find(s => s.exerciseId === id);
+
+  const teacherSubmissions = JSON.parse(localStorage.getItem(`exercise_${id}_submissions`)) || [];
+  const submission = teacherSubmissions.length > 0
+    ? teacherSubmissions[teacherSubmissions.length - 1]
+    : null;
+
+  if (submission) {
+    const submittedExercises = JSON.parse(localStorage.getItem("submittedExercises")) || [];
+    const index = submittedExercises.findIndex(
+      s => s.exerciseId === submission.exerciseId && s.studentName === submission.studentName
+    );
+    if (index !== -1) {
+      submittedExercises[index] = submission;
+      localStorage.setItem("submittedExercises", JSON.stringify(submittedExercises));
+    }
+  }
 
   if (!submission) {
     document.getElementById("result-detail").innerHTML = "<p>Không tìm thấy bài làm.</p>";
@@ -17,7 +31,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const exercises = JSON.parse(localStorage.getItem("exercises")) || [];
   const exercise = exercises.find(e => e.id === submission.exerciseId);
 
-  // ✅ Nếu có bài tập, đồng bộ lại kết quả theo chấm mới nhất
   if (exercise) {
     submission.answers.forEach((answer, i) => {
       const updatedQuestion = exercise.questions[i];
@@ -25,19 +38,20 @@ document.addEventListener("DOMContentLoaded", () => {
         answer.correctAnswer = updatedQuestion.answer;
         answer.points = updatedQuestion.points;
 
-        const isCorrect =
-          answer.userAnswer?.trim().toLowerCase() === updatedQuestion.answer.trim().toLowerCase();
-        answer.isCorrect = isCorrect;
-        answer.status = isCorrect ? "Đúng" : "Sai";
-        answer.score = isCorrect ? updatedQuestion.points : 0;
+        if (typeof answer.score !== "number" || answer.status === "Đang chấm") {
+          const isCorrect =
+            answer.userAnswer?.trim().toLowerCase() === updatedQuestion.answer.trim().toLowerCase();
+          answer.isCorrect = isCorrect;
+          answer.status = isCorrect ? "Đúng" : "Sai";
+          answer.score = isCorrect ? updatedQuestion.points : 0;
+        }
       }
     });
 
-    // ✅ Tính lại điểm số
+   
     submission.totalScore = submission.answers.reduce((sum, a) => sum + (a.score || 0), 0);
     submission.maxScore = submission.answers.reduce((sum, a) => sum + (a.points || 0), 0);
 
-    // ✅ Ghi lại kết quả mới vào localStorage
     const allSubmissions = JSON.parse(localStorage.getItem("submittedExercises")) || [];
     const index = allSubmissions.findIndex(
       s => s.exerciseId === submission.exerciseId && s.studentName === submission.studentName
@@ -48,7 +62,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // ✅ Hiển thị tiêu đề
+
+
   document.getElementById("result-title").textContent = `Kết quả: ${submission.exerciseTitle}`;
 
   const totalQuestions = submission.answers.length;
@@ -87,6 +102,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (resultDetail) {
     resultDetail.innerHTML = `
       <h3>Chi tiết từng câu</h3>
+      ${submission.feedback ? `<p class="exercise-comment"><strong>Nhận xét của giáo viên: </strong>${submission.feedback}</p>` : "Giáo viên chưa/không nhận xét bài này"}
       ${submission.answers
         .map((answer, index) => {
           const isManual = !answer.correctAnswer?.trim();
@@ -102,9 +118,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 <span class="answer-label">Trả lời của bạn:</span>
                 <span class="user-answer">${answer.userAnswer || "<i>Không trả lời</i>"}</span>
               </div>
-              ${
-                !isManual
-                  ? `
+              ${!isManual
+              ? `
                 <div class="answer-item">
                   <span class="answer-label">Đáp án đúng:</span>
                   <span class="correct-answer">${answer.correctAnswer}</span>
@@ -120,13 +135,13 @@ document.addEventListener("DOMContentLoaded", () => {
                   <span class="points">${answer.score}/${answer.points}</span>
                 </div>
               `
-                  : `
+              : `
                 <div class="answer-item">
                   <span class="answer-label">Kết quả:</span>
                   <span class="pending-answer">Đang chấm</span>
                 </div>
               `
-              }
+            }
             </div>
           </div>
         `;

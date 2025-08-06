@@ -28,7 +28,8 @@ document.addEventListener("DOMContentLoaded", () => {
     <div class="submission-content-wrapper">
       <div class="submission-content">
         <h2>Nội dung bài giảng</h2>
-        <pre style="line-height: 1.8; word-wrap: break-word;">${lesson.content}</pre>
+        <pre style="line-height: 1.8; word-wrap: break-word;">${lesson.content}</pre>;
+        
       </div>
       
       <div class="submission-actions">
@@ -77,6 +78,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <label>Chấm bài:
             <input type="number" min="0" max="${q.points}" class="regrade" data-q="${index}" ${!hasSubmissions ? 'disabled' : ''} />
           </label>
+          
       `;
 
       if (hasSubmissions) {
@@ -93,6 +95,7 @@ document.addEventListener("DOMContentLoaded", () => {
               <p>Trạng thái: ${answer.status}</p>
               <p>Điểm: ${answer.score}/${answer.points}</p>
               <p>Thời gian nộp: ${new Date(submission.submittedAt).toLocaleString()}</p>
+              <textarea name="comment" rows="5" cols="50" style="width=100%" height="100%" placeholder="Nhập nhận xét"></textarea>
             </div>
           `;
         });
@@ -154,7 +157,7 @@ document.addEventListener("DOMContentLoaded", () => {
               answer.status = answer.isCorrect ? "Đúng" : "Sai";
               answer.score = answer.isCorrect ? question.points : manualScore;
             }
-
+            answer.score = !isNaN(manualScore) ? manualScore : (isCorrect ? question.points : 0);
             totalScore += answer.score;
             maxScore += question.points;
           });
@@ -171,6 +174,13 @@ document.addEventListener("DOMContentLoaded", () => {
           exercises[exerciseIndex] = exercise;
           localStorage.setItem("exercises", JSON.stringify(exercises));
         }
+
+
+        exerciseSubmissions.forEach((submission, sIndex) => {
+          const commentBox = document.querySelectorAll('textarea[name="comment"]')[sIndex];
+          submission.feedback = commentBox?.value.trim() || "";
+        });
+
 
 
         localStorage.setItem(`exercise_${exercise.id}_submissions`, JSON.stringify(exerciseSubmissions));
