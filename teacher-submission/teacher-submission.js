@@ -95,7 +95,7 @@ document.addEventListener("DOMContentLoaded", () => {
               <p>Trạng thái: ${answer.status}</p>
               <p>Điểm: ${answer.score}/${answer.points}</p>
               <p>Thời gian nộp: ${new Date(submission.submittedAt).toLocaleString()}</p>
-              <textarea name="comment" rows="5" cols="50" style="width=100%" height="100%" placeholder="Nhập nhận xét"></textarea>
+              
             </div>
           `;
         });
@@ -106,6 +106,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     combinedHtml += `
+      <div>
+        <textarea id="comment-area" name="comment" rows="5" cols="50" style="width=100%" height="100%" placeholder="Nhập nhận xét"></textarea>
+      </div>
       <button id="save-feedback" ${!hasSubmissions ? 'disabled' : ''}>
         ${hasSubmissions ? 'Lưu chấm điểm' : 'Chưa có học sinh nộp bài'}
       </button>
